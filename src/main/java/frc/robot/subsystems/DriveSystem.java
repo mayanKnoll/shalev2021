@@ -7,10 +7,12 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.commands.DriveCommand;
-  import frc.util.Pair;
+import frc.util.Pair;
+import frc.util.SuperInterface;
+import frc.util.commands.ResetSensorsCommand;
 import frc.util.dashboard.SuperSystem;
 
-public class DriveSystem extends SuperSystem {
+public class DriveSystem extends SuperSystem implements SuperInterface {
 
   SwerveModule FR_Module, FL_Module, BL_Module, BR_Module;
   SwerveModule modules[];
@@ -51,6 +53,8 @@ public class DriveSystem extends SuperSystem {
     // System.out.println("center x: " + getCenterRobot().getFirst());
     // System.out.println("center x: " + getCenterRobot().getFirst());
     // This method will be called once per scheduler run
+    getTab().addCommandToDashboard("Reset Sensors", new ResetSensorsCommand(this, 0));
+
   }
 
   public Pair<Double, Double> getCenterRobot() {
@@ -108,9 +112,10 @@ public class DriveSystem extends SuperSystem {
     ;
   }
 
-  public void resetSensor() {
-    for (SwerveModule module : modules)
+  @Override
+  public void resetSensors(double pos) {
+    for (SwerveModule module : modules) {
       module.resetSensor();
-    ;
+    }
   }
 }
