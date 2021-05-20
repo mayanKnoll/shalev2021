@@ -5,12 +5,12 @@ import frc.robot.Constants;
 import frc.util.OutputSystem;
 import frc.util.dashboard.SuperSystem;
 
-public class ColectionSystem extends OutputSystem{
+public class CollectionSystem extends OutputSystem{
   
   VictorSP rightMotor = new VictorSP(Constants.COLLECTION_RIGHT_MOTOR_ID); 
   VictorSP leftMotor = new VictorSP(Constants.COLLECTION_LEFT_MOTOR_ID); 
 
-  public ColectionSystem() {
+  public CollectionSystem() {
     super("Collection System");
   }
 

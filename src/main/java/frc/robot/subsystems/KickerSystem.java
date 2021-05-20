@@ -4,12 +4,12 @@ import edu.wpi.first.wpilibj.VictorSP;
 import frc.robot.Constants;
 import frc.util.OutputSystem;
 
-public class Kicker extends OutputSystem{
+public class KickerSystem extends OutputSystem{
 
   VictorSP kickMotor = new VictorSP(Constants.KICKER_MOTOR_ID);
 
-  public Kicker() {
-    super("Kicker");
+  public KickerSystem() {
+    super("Kicker System");
   }
 
   @Override

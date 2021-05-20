@@ -31,6 +31,7 @@ public final class Constants {
     public static final int KICKER_MOTOR_ID = 0;
     public static final int COLLECTION_LEFT_MOTOR_ID = 0;
     public static final int COLLECTION_RIGHT_MOTOR_ID = 0;
+    public static final int MICRO_SWITCH_CHANNEL = 0;
 
     public static final int SWERVE_FR_ANGLE_MOTOR_CHANNEL = 0;
     public static final int SWERVE_FL_ANGLE_MOTOR_CHANNEL = 3;
