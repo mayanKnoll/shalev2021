@@ -58,4 +58,9 @@ public final class Constants {
     public static final double LEN_MODULE_FROM_CENTER = 90;
     public static final int NUMBER_OF_MODULES = 4;
     public static final Gains SWERVE_ANGLE_PID_GAINS = new Gains("SWERVE_ANGLE_PID_GAINS", 0.012, 0, 0.0005);
+
+    public static final double KICKER_SPEED = 0.5;
+    public static final double CARTRIDGE_SPEED = 0.5;
+    public static final double COLLECT_SPEED = 0.5;
+
 }

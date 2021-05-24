@@ -27,14 +27,17 @@ public class KickToTouchCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    while(!microSwitch.get()){
+    if (!microSwitch.get()){
       kickerSystem.setOutput(output);
+    } else {
+      kickerSystem.setOutput(0);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    kickerSystem.setOutput(0);
   }
 
   // Returns true when the command should end.

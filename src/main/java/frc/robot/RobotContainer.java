@@ -8,7 +8,12 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.CartridgeSystem;
+import frc.robot.subsystems.CollectionSystem;
+import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.KickerSystem;
+import frc.robot.subsystems.ShootSystem;
 import frc.util.electronics.sensors.SuperNavX;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -26,13 +31,21 @@ public class RobotContainer {
   public static final SuperNavX navxSystem = new SuperNavX("Navx");
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
+  // all subsystems
+  public final DriveSystem driveSystem = new DriveSystem("DriveSystem");
+  public final CollectionSystem collectionSystem = new CollectionSystem();
+  public final CartridgeSystem cartridgeSystem = new CartridgeSystem();
+  public final KickerSystem kickerSystem = new KickerSystem();
+  public final ShootSystem shootSystem = new ShootSystem();
+
+  public final RobotButtons buttons = new RobotButtons(driveJoystick);
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    // Configure the button bindings
+    buttons.loadButtons(driveSystem, collectionSystem, cartridgeSystem, kickerSystem, shootSystem);
     configureButtonBindings();
-
   }
 
   /**

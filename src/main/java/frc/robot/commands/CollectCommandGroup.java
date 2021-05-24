@@ -1,21 +1,22 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.subsystems.CartridgeSystem;
 import frc.robot.subsystems.CollectionSystem;
 import frc.robot.subsystems.KickerSystem;
+import frc.robot.Constants;
 import frc.robot.commands.SetOutputCommand;
 
-public class CollectCommandGroup extends SequentialCommandGroup {
-  /**
-   * Creates a new CollectCommandGroup.
-   */
-  public CollectCommandGroup() {
+public class CollectCommandGroup extends ParallelCommandGroup {
+  KickerSystem kickerSystem;
+  CartridgeSystem cartridgeSystem;
+  CollectionSystem collectionSystem;
+  public CollectCommandGroup(KickerSystem kickerSystem, CartridgeSystem cartridgeSystem, CollectionSystem collectionSystem) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(new KickToTouchCommand(new KickerSystem(), 0.5), 
-          new SetOutputCommand(new CartridgeSystem(), 0.5), 
-          new SetOutputCommand(new CollectionSystem(), 0.5));
+    super(new KickToTouchCommand(kickerSystem, Constants.KICKER_SPEED), 
+          new SetOutputCommand(cartridgeSystem, Constants.CARTRIDGE_SPEED), 
+          new SetOutputCommand(collectionSystem, Constants.COLLECT_SPEED));
   }
 }

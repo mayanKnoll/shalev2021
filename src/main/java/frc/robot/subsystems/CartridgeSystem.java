@@ -25,8 +25,4 @@ public class CartridgeSystem extends OutputSystem{
   public void setOutput(double output){
     cartMotor.set(output);
   }
-
-  public double getOutput(){
-    return cartMotor.getSpeed();
-  }
 }
