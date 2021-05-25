@@ -28,13 +28,13 @@ public class SwerveModule {
 
     private double angleFromCenter;
 
-    public SwerveModule(Boolean isSim, int angleMotorChannel, int wheelMotorCanID, int encoderChannel, boolean inverted,
-            double offset, double angleFromCenter) {
+    public SwerveModule(/* Boolean isSim, */ int angleMotorChannel, int wheelMotorCanID, int encoderChannel,
+            boolean inverted, double offset, double angleFromCenter) {
         angleMotor = new SuperVictorSP(angleMotorChannel);
-        if (isSim)
-            wheelMotor = new SuperVictorSP(wheelMotorCanID);
-        else
-            wheelMotor = new SuperSparkMax(wheelMotorCanID, MotorType.kBrushless, 60, inverted, IdleMode.kBrake);
+        /*
+         * if (isSim) wheelMotor = new SuperVictorSP(wheelMotorCanID); else
+         */
+        wheelMotor = new SuperSparkMax(wheelMotorCanID, MotorType.kBrushless, 60, inverted, IdleMode.kBrake);
 
         angleEncoder = new DutyCycleEncoder(encoderChannel);
         angleEncoder.setDistancePerRotation(Constants.DEGREES_PER_ENCODER_ROTATION);

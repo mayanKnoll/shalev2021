@@ -22,19 +22,19 @@ public class DriveSystem extends SuperSystem implements SuperInterface {
   public DriveSystem(String name) {
     super(name);
     modules = new SwerveModule[Constants.NUMBER_OF_MODULES];
-    modules[0] = FR_Module = new SwerveModule(false, Constants.SWERVE_FR_ANGLE_MOTOR_CHANNEL,
+    modules[0] = FR_Module = new SwerveModule( Constants.SWERVE_FR_ANGLE_MOTOR_CHANNEL,
         Constants.SWERVE_FR_WHEEL_MOTOR_CAN_ID, Constants.SWERVE_FR_ANGLE_ENCODER_CHANNEL, Constants.SWERVE_FR_INVERTED,
         Constants.SWERVE_FR_ANGLE_ENCODER_OFFSET, -angelFromCenter);
 
-    modules[1] = FL_Module = new SwerveModule(false, Constants.SWERVE_FL_ANGLE_MOTOR_CHANNEL,
+    modules[1] = FL_Module = new SwerveModule(Constants.SWERVE_FL_ANGLE_MOTOR_CHANNEL,
         Constants.SWERVE_FL_WHEEL_MOTOR_CAN_ID, Constants.SWERVE_FL_ANGLE_ENCODER_CHANNEL, Constants.SWERVE_FL_INVERTED,
         Constants.SWERVE_FL_ANGLE_ENCODER_OFFSET, angelFromCenter);
 
-    modules[2] = BL_Module = new SwerveModule(false, Constants.SWERVE_BL_ANGLE_MOTOR_CHANNEL,
+    modules[2] = BL_Module = new SwerveModule(Constants.SWERVE_BL_ANGLE_MOTOR_CHANNEL,
         Constants.SWERVE_BL_WHEEL_MOTOR_CAN_ID, Constants.SWERVE_BL_ANGLE_ENCODER_CHANNEL, Constants.SWERVE_BL_INVERTED,
         Constants.SWERVE_BL_ANGLE_ENCODER_OFFSET, 180 - angelFromCenter);
 
-    modules[3] = BR_Module = new SwerveModule(false, Constants.SWERVE_BR_ANGLE_MOTOR_CHANNEL,
+    modules[3] = BR_Module = new SwerveModule(Constants.SWERVE_BR_ANGLE_MOTOR_CHANNEL,
         Constants.SWERVE_BR_WHEEL_MOTOR_CAN_ID, Constants.SWERVE_BR_ANGLE_ENCODER_CHANNEL, Constants.SWERVE_BR_INVERTED,
         Constants.SWERVE_BR_ANGLE_ENCODER_OFFSET, -180 + angelFromCenter);
 
@@ -53,7 +53,7 @@ public class DriveSystem extends SuperSystem implements SuperInterface {
     // System.out.println("center x: " + getCenterRobot().getFirst());
     // System.out.println("center x: " + getCenterRobot().getFirst());
     // This method will be called once per scheduler run
-    getTab().addCommandToDashboard("Reset Sensors", new ResetSensorsCommand(this, 0));
+    //getTab().addCommandToDashboard("Reset Sensors", new ResetSensorsCommand(this, 0));
 
   }
 
