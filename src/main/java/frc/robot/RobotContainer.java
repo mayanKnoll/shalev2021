@@ -7,11 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.CartridgeSystem;
 import frc.robot.subsystems.CollectionSystem;
 import frc.robot.subsystems.DriveSystem;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.KickerSystem;
 import frc.robot.subsystems.ShootSystem;
 import frc.util.electronics.sensors.SuperNavX;
@@ -26,10 +24,8 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   public static final Joystick driveJoystick = new Joystick(0);
   public static final SuperNavX navxSystem = new SuperNavX("Navx");
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   // all subsystems
   public final DriveSystem driveSystem = new DriveSystem("DriveSystem");
@@ -64,6 +60,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return null;
   }
 }
