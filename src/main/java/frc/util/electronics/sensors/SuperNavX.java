@@ -5,13 +5,14 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import frc.util.dashboard.SuperSystem;
 
-public class SuperNavX extends SuperSystem{
+public class SuperNavX extends SuperSystem {
   private AHRS navX = new AHRS(SPI.Port.kMXP);
 
   public SuperNavX(String name) {
     super(name);
     this.resetNavx();
-    // getTab().addCommandToDashboard("ResetSensor", new ResetSensorsCommand(this, 0));
+    // getTab().addCommandToDashboard("ResetSensor", new ResetSensorsCommand(this,
+    // 0));
   }
 
   @Override

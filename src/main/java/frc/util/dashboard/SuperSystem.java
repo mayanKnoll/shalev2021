@@ -14,7 +14,7 @@ import frc.util.dashboard.SuperSubSystemTab;
  * 
  * @author Matan Steinmetz
  */
-public class SuperSystem extends SubsystemBase{
+public class SuperSystem extends SubsystemBase {
     private String nameSystem;
     protected static List<SuperSystem> allSuperSubsystems = new ArrayList<SuperSystem>();
     private static HashMap<String, SuperSubSystemTab> allTabs = new HashMap<>();

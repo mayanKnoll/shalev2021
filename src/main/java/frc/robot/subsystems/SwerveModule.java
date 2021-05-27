@@ -28,6 +28,10 @@ public class SwerveModule {
 
     private double angleFromCenter;
 
+    public double getError() {
+        return PID_Controller.getError();
+    }
+
     public SwerveModule(/* Boolean isSim, */ int angleMotorChannel, int wheelMotorCanID, int encoderChannel,
             boolean inverted, double offset, double angleFromCenter) {
         angleMotor = new SuperVictorSP(angleMotorChannel);
@@ -95,11 +99,13 @@ public class SwerveModule {
     }
 
     public void drive(double targetAngle, double speed) {
+        // System.out.println("t" + targetAngle);
+
         double currAngle = getEncoderAngle();
         double currAngleMod = currAngle < 0 ? (currAngle % 360) + 360 : (currAngle % 360);
 
-        // currAngleMod += 3211;
-        // targetAngle += 3211;
+        currAngleMod += 3211;
+        targetAngle += 3211;
 
         double delta = currAngleMod - targetAngle;
 
@@ -119,6 +125,8 @@ public class SwerveModule {
         }
 
         targetAngle += currAngle - currAngleMod;
+        // System.out.println("c" + currAngle);
+        // System.out.println("t" + targetAngle);
 
         this.setModuleAngle(targetAngle);
         this.goToPositionAngle(currAngle);
@@ -127,5 +135,6 @@ public class SwerveModule {
 
     public void resetSensor() {
         angleEncoder.reset();
+        wheelMotor.reset(0);
     }
 }

@@ -109,6 +109,10 @@ public class PIDController {
         return Math.abs(output) > Math.abs(maxOutput) ? maxOutput * output / Math.abs(output) : output;
     }
 
+    public double getError(){
+        return error;
+    }
+
     /**
      * @param gains_ need to be gains to use.
      */

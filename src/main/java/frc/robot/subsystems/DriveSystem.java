@@ -21,8 +21,9 @@ public class DriveSystem extends SuperSystem implements SuperInterface {
   /** Creates a new DriveSystem. */
   public DriveSystem(String name) {
     super(name);
+    getTab().addCommandToDashboard("Reset Sensors", new ResetSensorsCommand(this, 0));
     modules = new SwerveModule[Constants.NUMBER_OF_MODULES];
-    modules[0] = FR_Module = new SwerveModule( Constants.SWERVE_FR_ANGLE_MOTOR_CHANNEL,
+    modules[0] = FR_Module = new SwerveModule(Constants.SWERVE_FR_ANGLE_MOTOR_CHANNEL,
         Constants.SWERVE_FR_WHEEL_MOTOR_CAN_ID, Constants.SWERVE_FR_ANGLE_ENCODER_CHANNEL, Constants.SWERVE_FR_INVERTED,
         Constants.SWERVE_FR_ANGLE_ENCODER_OFFSET, -angelFromCenter);
 
@@ -50,11 +51,22 @@ public class DriveSystem extends SuperSystem implements SuperInterface {
     FR_Module.updateCord(RobotContainer.navxSystem);
     getTab().putInDashboard("center x: ", getCenterRobot().getFirst());
     getTab().putInDashboard("center y: ", getCenterRobot().getSecond());
+    getTab().putInDashboard("FL ANGLE: ", FL_Module.getEncoderAngle());
+    getTab().putInDashboard("FR ANGLE: ", FR_Module.getEncoderAngle());
+    getTab().putInDashboard("BL ANGLE: ", BL_Module.getEncoderAngle());
+    getTab().putInDashboard("BR ANGLE: ", BR_Module.getEncoderAngle());
+    getTab().putInDashboard("FL drive: ", FL_Module.getEncoderDistance());
+    getTab().putInDashboard("FR drive: ", FR_Module.getEncoderDistance());
+    getTab().putInDashboard("BL drive: ", BL_Module.getEncoderDistance());
+    getTab().putInDashboard("BR drive: ", BR_Module.getEncoderDistance());
+    int i = 1;
+    for (SwerveModule module : modules) {
+      getTab().putInDashboard("error " + i + ": ", module.getError());
+      i++;
+    }
     // System.out.println("center x: " + getCenterRobot().getFirst());
     // System.out.println("center x: " + getCenterRobot().getFirst());
     // This method will be called once per scheduler run
-    //getTab().addCommandToDashboard("Reset Sensors", new ResetSensorsCommand(this, 0));
-
   }
 
   public Pair<Double, Double> getCenterRobot() {
@@ -93,6 +105,8 @@ public class DriveSystem extends SuperSystem implements SuperInterface {
     double flSpeed = Math.sqrt(b * b + d * d);
     double blSpeed = Math.sqrt(a * a + d * d);
     double brSpeed = Math.sqrt(a * a + c * c);
+
+    System.out.println(frAngle);
 
     FR_Module.drive(frAngle, frSpeed);
     FL_Module.drive(flAngle, flSpeed);
