@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+
+import edu.wpi.first.math.MathShared;
 import frc.robot.Constants;
 import frc.util.dashboard.SuperSystem;
 import frc.util.electronics.motor.SuperTalonFX;
@@ -14,8 +16,12 @@ public class ShootSystem extends SuperSystem {
            NeutralMode.Coast, Constants.SHOOT_GAINS, TalonFXControlMode.Velocity);
   SuperTalonFX slaveMotor = new SuperTalonFX(masterMotor, Constants.SHOOT_MOTOR_SLAVE_ID, 60, true);
 
+
+
   public ShootSystem() {
     super("ShootSystem");
+
+    
   }
 
   @Override
@@ -27,7 +33,7 @@ public class ShootSystem extends SuperSystem {
   }
 
   public double getVelocity(){
-    return masterMotor.getVelocity();
+    return masterMotor.getSelectedSensorVelocity();
   }
 
 }

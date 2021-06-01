@@ -15,6 +15,7 @@ public class KickToTouchCommand extends CommandBase {
 
   public KickToTouchCommand(KickerSystem kickerSystem, double output) {
     addRequirements(kickerSystem);
+    this.kickerSystem = kickerSystem;
 
     this.output = output;
   }
@@ -30,6 +31,8 @@ public class KickToTouchCommand extends CommandBase {
     if (!microSwitch.get()){
       kickerSystem.setOutput(output);
     } else {
+      System.out.println("---------------------");
+      System.out.println(kickerSystem.toString());
       kickerSystem.setOutput(0);
     }
   }

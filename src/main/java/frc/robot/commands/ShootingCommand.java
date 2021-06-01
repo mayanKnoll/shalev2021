@@ -23,7 +23,7 @@ public class ShootingCommand extends CommandBase {
     this.cartridgeSystem = cartridgeSystem;
     this.kickerSystem = kickerSystem;
     this.velocity = velocity;
-    addRequirements(shootSystem, cartridgeSystem);
+    addRequirements(shootSystem, cartridgeSystem, kickerSystem);
   }
 
   // Called when the command is initially scheduled.
@@ -34,7 +34,10 @@ public class ShootingCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    velocity = (int)shootSystem.getTab().getFromDashboard("Shoot Velocity", 0);
+    System.out.println(shootSystem.getVelocity());
     shootSystem.setVelocity(velocity);
+
     if(shootSystem.getVelocity() >= velocity - 100){
       kickerSystem.setOutput(Constants.KICKER_SPEED);
       cartridgeSystem.setOutput(Constants.CARTRIDGE_SPEED);

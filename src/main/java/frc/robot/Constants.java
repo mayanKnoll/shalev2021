@@ -25,12 +25,12 @@ public final class Constants {
     public static final int SWERVE_BL_WHEEL_MOTOR_CAN_ID = 3;
     public static final int SWERVE_BR_WHEEL_MOTOR_CAN_ID = 4;
 
-    public static final int SHOOT_MOTOR_MASTER_ID = 0;
-    public static final int SHOOT_MOTOR_SLAVE_ID = 0;
-    public static final Gains SHOOT_GAINS = new Gains("put values");
+    public static final int SHOOT_MOTOR_MASTER_ID = 6;
+    public static final int SHOOT_MOTOR_SLAVE_ID = 5;
+    public static final Gains SHOOT_GAINS = new Gains("put values", 0.05, 0, 0);
 
-    public static final int CARTRIDGE_MOTOR_ID = 9;
-    public static final int KICKER_MOTOR_ID = 8;
+    public static final int CARTRIDGE_MOTOR_ID = 5;
+    public static final int KICKER_MOTOR_ID = 4;
     public static final int COLLECTION_LEFT_MOTOR_ID = 6;
     public static final int COLLECTION_RIGHT_MOTOR_ID = 7;
     public static final int MICRO_SWITCH_CHANNEL = 5;

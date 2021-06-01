@@ -106,7 +106,7 @@ public class DriveSystem extends SuperSystem implements SuperInterface {
     double blSpeed = Math.sqrt(a * a + d * d);
     double brSpeed = Math.sqrt(a * a + c * c);
 
-    System.out.println(frAngle);
+    // System.out.println(frAngle);
 
     FR_Module.drive(frAngle, frSpeed);
     FL_Module.drive(flAngle, flSpeed);
