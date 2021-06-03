@@ -5,17 +5,20 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.KickerSystem;
+import frc.robot.subsystems.ShootSystem;
+import frc.util.OutputSystem;
 
 public class KickToTouchCommand extends CommandBase {
 
-  DigitalInput microSwitch = new DigitalInput(Constants.MICRO_SWITCH_CHANNEL);
 
   KickerSystem kickerSystem;
+  ShootSystem shootSystem;
   double output;
 
-  public KickToTouchCommand(KickerSystem kickerSystem, double output) {
+  public KickToTouchCommand(KickerSystem kickerSystem, ShootSystem shootSystem, double output) {
     addRequirements(kickerSystem);
     this.kickerSystem = kickerSystem;
+    this.shootSystem = shootSystem;
 
     this.output = output;
   }
@@ -28,7 +31,7 @@ public class KickToTouchCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (!microSwitch.get()){
+    if (!kickerSystem.getMicroSwitch() /*&& shootSystem.getVelocity() >= shootSystem.getVelDesired() - 100*/){
       kickerSystem.setOutput(output);
     } else {
       System.out.println("---------------------");

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.CollectCommandGroup;
 import frc.robot.commands.SetOutputCommand;
 import frc.robot.commands.ShootingCommand;
+import frc.robot.commands.ShootingCommandGroup;
 import frc.robot.subsystems.CartridgeSystem;
 import frc.robot.subsystems.CollectionSystem;
 import frc.robot.subsystems.DriveSystem;
@@ -32,11 +33,13 @@ public class RobotButtons {
     Trigger reverseButton = new Trigger(() -> driverJoystick.getRawButton(6));
 
     Trigger shootingButton = new Trigger(() -> driverJoystick.getRawButton(2));
+    Trigger testButton = new Trigger(() -> driverJoystick.getRawButton(1));
 
     public void loadButtons(DriveSystem driveSystem, CollectionSystem collectionSystem, CartridgeSystem cartridgeSystem, KickerSystem kickerSystem, ShootSystem shootSystem){
         intakeButton.whileActiveContinuous(new CollectCommandGroup(kickerSystem, cartridgeSystem, collectionSystem));
-        shootingButton.whileActiveContinuous(new ShootingCommand(shootSystem, cartridgeSystem, kickerSystem, 3000));
+        shootingButton.whileActiveContinuous(new ShootingCommand(shootSystem, cartridgeSystem, kickerSystem, 4000));
         reverseButton.whileActiveContinuous(new SetOutputCommand(cartridgeSystem, -0.5));
+        testButton.whileActiveContinuous(new ShootingCommandGroup(kickerSystem, cartridgeSystem, shootSystem, 2000));
     }
 }
 

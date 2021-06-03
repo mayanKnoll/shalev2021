@@ -34,9 +34,9 @@ public class ShootingCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    velocity = (int)shootSystem.getTab().getFromDashboard("Shoot Velocity", 0);
+    // velocity = (int)shootSystem.getTab().getFromDashboard("Shoot Velocity", 0);
     System.out.println(shootSystem.getVelocity());
-    shootSystem.setVelocity(velocity);
+    shootSystem.setOutput(velocity);
 
     if(shootSystem.getVelocity() >= velocity - 100){
       kickerSystem.setOutput(Constants.KICKER_SPEED);
@@ -47,7 +47,7 @@ public class ShootingCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shootSystem.setVelocity(0);
+    shootSystem.setOutput(0);
     kickerSystem.setOutput(0);
     cartridgeSystem.setOutput(0);
   }

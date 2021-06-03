@@ -1,12 +1,10 @@
 package frc.robot.subsystems;
 
-import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import frc.robot.Constants;
-import frc.util.dashboard.SuperSystem;
 import frc.util.Pair;
 import frc.util.PID.PIDController;
 import frc.util.electronics.motor.SuperMotor;
@@ -55,7 +53,7 @@ public class SwerveModule {
     }
 
     public double getEncoderAngle() {
-        return -(angleEncoder.getDistance());
+        return (angleEncoder.getDistance());
     }
 
     public double getAngleDistance() {

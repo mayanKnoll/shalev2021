@@ -103,12 +103,12 @@ public class SuperTalonFX extends TalonFX implements SuperMotor {
 
     @Override
     public double getVelocity() {
-        return super.getSelectedSensorPosition();
+        return super.getSelectedSensorVelocity();
     }
 
     @Override
     public double getPosition() {
-        return super.getSelectedSensorVelocity();
+        return super.getSelectedSensorPosition();
     }
 
     @Override

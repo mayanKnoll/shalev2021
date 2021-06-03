@@ -23,7 +23,7 @@ public class SetOutputCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    outputSystem.setOutput(output);
+     outputSystem.setOutput(output);
   }
 
   // Called once the command ends or is interrupted.
