@@ -27,7 +27,7 @@ public final class Constants {
 
     public static final int SHOOT_MOTOR_MASTER_ID = 6;
     public static final int SHOOT_MOTOR_SLAVE_ID = 5;
-    public static final Gains SHOOT_GAINS = new Gains("put values", 0.5, 0, 0);
+    public static final Gains SHOOT_GAINS = new Gains("put values", 0.05, 0, 0);
 
     public static final int CARTRIDGE_MOTOR_ID = 5;
     public static final int KICKER_MOTOR_ID = 4;
@@ -55,13 +55,14 @@ public final class Constants {
     public static final boolean SWERVE_BL_INVERTED = false;
     public static final boolean SWERVE_BR_INVERTED = false;
 
+
     public static final double DEGREES_PER_ENCODER_ROTATION = -90;
     public static final double ENCODER_TO_METER = 1;
     public static final double LEN_MODULE_FROM_CENTER = 1;
     public static final int NUMBER_OF_MODULES = 4;
     public static final Gains SWERVE_ANGLE_PID_GAINS = new Gains("SWERVE_ANGLE_PID_GAINS", 0.008, 0, 0.000);
 
-    public static final double KICKER_SPEED = 0.5;
+    public static final double KICKER_SPEED = -1;
     public static final double CARTRIDGE_SPEED = 0.8;
     public static final double COLLECT_SPEED = 0.5;
 

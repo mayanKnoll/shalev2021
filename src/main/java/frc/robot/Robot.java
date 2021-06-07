@@ -30,7 +30,7 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    m_robotContainer.navxSystem.subsystemPeriodic();
+    RobotContainer.navxSystem.subsystemPeriodic();
     m_robotContainer.shootSystem.getTab().putInDashboard("Shoot Velocity", 0);
 
   }

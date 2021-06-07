@@ -110,7 +110,7 @@ public class SuperSparkMax extends CANSparkMax implements SuperMotor {
 
     @Override
     public void setOutput(double output) {
-        // if (controlType == null) {
+        if (controlType == null) {}
         // set(output);
         // } else {
         // getPIDController().setReference(output, controlType);

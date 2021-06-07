@@ -7,13 +7,14 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CartridgeSystem;
 import frc.robot.subsystems.CollectionSystem;
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.KickerSystem;
 import frc.robot.subsystems.ShootSystem;
 import frc.util.electronics.sensors.SuperNavX;
-import edu.wpi.first.wpilibj2.command.Command;
+import frc.util.vision.Limelight;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -26,6 +27,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static final Joystick driveJoystick = new Joystick(0);
   public static final SuperNavX navxSystem = new SuperNavX("Navx");
+  public final Limelight limelight = new Limelight.Builder().build();
+
 
   // all subsystems
   public final DriveSystem driveSystem = new DriveSystem("DriveSystem");

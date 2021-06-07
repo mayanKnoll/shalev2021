@@ -1,12 +1,9 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.KickerSystem;
 import frc.robot.subsystems.ShootSystem;
-import frc.util.OutputSystem;
 
 public class KickToTouchCommand extends CommandBase {
 

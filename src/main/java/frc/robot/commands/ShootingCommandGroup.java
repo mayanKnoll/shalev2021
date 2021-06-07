@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
 import frc.robot.subsystems.CartridgeSystem;
@@ -16,9 +17,11 @@ import frc.robot.subsystems.ShootSystem;
 public class ShootingCommandGroup extends ParallelCommandGroup {
   /** Creates a new intakeBall2ShooterCommand. */
   public ShootingCommandGroup(KickerSystem kickerSystem, CartridgeSystem cartridgeSystem, ShootSystem shootSystem, int velocity) {
-    // Add the deadline command in the super() call. Add other commands using
-    // addCommands().
     
-    super(new SetOutputCommand(shootSystem, velocity), new KickToTouchCommand(kickerSystem, shootSystem, Constants.KICKER_SPEED) , new Cartridges2Shooter(cartridgeSystem, shootSystem));
+    Command shootCommand = new SetOutputCommand(shootSystem, velocity);
+    Command kickToTouchCommand  = new KickToTouchCommand(kickerSystem, shootSystem, Constants.KICKER_SPEED);
+    Command cartridges2shooter = new Cartridges2Shooter(cartridgeSystem, shootSystem);
+
+    addCommands(shootCommand, kickToTouchCommand , cartridges2shooter);
   }
 }

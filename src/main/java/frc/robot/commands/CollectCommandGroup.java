@@ -12,10 +12,11 @@ public class CollectCommandGroup extends ParallelCommandGroup {
   CartridgeSystem cartridgeSystem;
   CollectionSystem collectionSystem;
   public CollectCommandGroup(KickerSystem kickerSystem, CartridgeSystem cartridgeSystem, CollectionSystem collectionSystem) {
-    // Add your commands in the super() call, e.g.
-    // super(new FooCommand(), new BarCommand());
-    super(new SetOutputCommand(kickerSystem, Constants.KICKER_SPEED), 
-          new SetOutputCommand(cartridgeSystem, Constants.CARTRIDGE_SPEED), 
-          new SetOutputCommand(collectionSystem, Constants.COLLECT_SPEED));
+
+    
+    super(new SetOutputCommand(kickerSystem, Constants.KICKER_SPEED)  
+          //new SetOutputCommand(cartridgeSystem, Constants.CARTRIDGE_SPEED), 
+          //new SetOutputCommand(collectionSystem, Constants.COLLECT_SPEED)
+          );
   }
 }

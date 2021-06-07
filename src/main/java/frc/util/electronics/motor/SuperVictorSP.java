@@ -10,7 +10,6 @@ package frc.util.electronics.motor;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.VictorSP;
-import frc.robot.RobotContainer;
 
 /**
  * This class is SuperMotor of VictorSP

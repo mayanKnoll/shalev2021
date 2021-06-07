@@ -53,7 +53,7 @@ public class SwerveModule {
     }
 
     public double getEncoderAngle() {
-        return (angleEncoder.getDistance());
+        return (angleEncoder.getDistance() - offset);
     }
 
     public double getAngleDistance() {
