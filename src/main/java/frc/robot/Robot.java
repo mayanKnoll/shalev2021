@@ -30,7 +30,6 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    RobotContainer.navxSystem.subsystemPeriodic();
     m_robotContainer.shootSystem.getTab().putInDashboard("Shoot Velocity", 0);
 
   }
@@ -46,6 +45,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+
     // Runs the Scheduler. This is responsible for polling buttons, adding
     // newly-scheduled
     // commands, running already-scheduled commands, removing finished or

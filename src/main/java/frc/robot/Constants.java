@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
 
 import frc.util.PID.Gains;
@@ -24,6 +20,10 @@ public final class Constants {
     public static final int SWERVE_FL_WHEEL_MOTOR_CAN_ID = 2;
     public static final int SWERVE_BL_WHEEL_MOTOR_CAN_ID = 3;
     public static final int SWERVE_BR_WHEEL_MOTOR_CAN_ID = 4;
+    public static  Gains visionGainsZ = new Gains("visionZ", 0, 0, 0);//-0.002
+    public static  Gains visionGainsX = new Gains("visionX", -0.05, 0, 0); //-0.05
+    public static  Gains visionGainsY = new Gains("visionY", 0.0, 0, 0); // 0.02
+
 
     public static final int SHOOT_MOTOR_MASTER_ID = 6;
     public static final int SHOOT_MOTOR_SLAVE_ID = 5;
@@ -45,16 +45,15 @@ public final class Constants {
     public static final int SWERVE_BL_ANGLE_ENCODER_CHANNEL = 0;
     public static final int SWERVE_BR_ANGLE_ENCODER_CHANNEL = 2;
 
-    public static final double SWERVE_FR_ANGLE_ENCODER_OFFSET = 90;
-    public static final double SWERVE_FL_ANGLE_ENCODER_OFFSET = -90;
-    public static final double SWERVE_BL_ANGLE_ENCODER_OFFSET = -90;
-    public static final double SWERVE_BR_ANGLE_ENCODER_OFFSET = 90;
+    public static final double SWERVE_FR_ANGLE_ENCODER_OFFSET = 0;
+    public static final double SWERVE_FL_ANGLE_ENCODER_OFFSET = 0;
+    public static final double SWERVE_BL_ANGLE_ENCODER_OFFSET = 0;
+    public static final double SWERVE_BR_ANGLE_ENCODER_OFFSET = 0;
 
     public static final boolean SWERVE_FR_INVERTED = false;
     public static final boolean SWERVE_FL_INVERTED = false;
     public static final boolean SWERVE_BL_INVERTED = false;
     public static final boolean SWERVE_BR_INVERTED = false;
-
 
     public static final double DEGREES_PER_ENCODER_ROTATION = -90;
     public static final double ENCODER_TO_METER = 1;
@@ -65,5 +64,4 @@ public final class Constants {
     public static final double KICKER_SPEED = -1;
     public static final double CARTRIDGE_SPEED = 0.8;
     public static final double COLLECT_SPEED = 0.5;
-
 }

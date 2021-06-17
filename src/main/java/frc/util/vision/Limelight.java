@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 import frc.util.vision.commands.LimelightCameraChangeModeCommand;
 import frc.util.vision.commands.LimelightLEDChangeModeCommand;
 
@@ -33,12 +34,13 @@ public class Limelight extends SubsystemBase {
   protected NetworkTableEntry ty;
   protected NetworkTableEntry ta;
   protected NetworkTableEntry tv;
+  protected NetworkTableEntry ts;
   protected NetworkTableEntry LEDMode;
   protected NetworkTableEntry cameraMode;
   protected NetworkTableEntry streamMode;
 
-  protected double tx_ = 0, ty_ = 0, ta_ = 0;
-  protected double lastTx_ = 0, lastTy_ = 0, lastTa_ = 0;
+  protected double tx_ = 0, ty_ = 0, ta_ = 0, ts_ = 0;
+  protected double lastTx_ = 0, lastTy_ = 0, lastTa_ = 0, lastTs = 0;
   protected boolean isValueChange = true;
 
   protected double yawAngle = 0, pitchAngle = 90, high = 0, cameraDistanceFromCenterRobot = 0;
@@ -54,6 +56,8 @@ public class Limelight extends SubsystemBase {
     ty = this.limelightTable.getEntry("ty");
     ta = this.limelightTable.getEntry("ta");
     tv = this.limelightTable.getEntry("tv");
+    ts = this.limelightTable.getEntry("ts");
+    
 
     this.LEDMode = this.limelightTable.getEntry("ledMode");
     this.cameraMode = this.limelightTable.getEntry("camMode");
@@ -195,6 +199,10 @@ public class Limelight extends SubsystemBase {
     return ta_;
   }
 
+  public double getS(){
+    return ts_;
+  }
+
   /**
    * @return true if valid.
    */
@@ -208,8 +216,8 @@ public class Limelight extends SubsystemBase {
    * 
    * @return the angle of the center robot to target.
    */
-  public double getAngleToTarget() {
-    return angle;
+  public double getAngleToTarget(double angleRobot) {
+    return angleRobot + getX();
   }
 
   /**
@@ -219,6 +227,7 @@ public class Limelight extends SubsystemBase {
    * @return the distance to target.
    */
   public double getDistanceToTarget() {
+    distance = high / Math.tan(getY() + pitchAngle);
     return distance;
   }
 
@@ -229,10 +238,13 @@ public class Limelight extends SubsystemBase {
     lastTx_ = tx_;
     lastTy_ = ty_;
     lastTa_ = ta_;
+    lastTs = ts_;
 
     tx_ = tx.getDouble(0.0);
     ty_ = ty.getDouble(0.0);
     ta_ = ta.getDouble(0.0);
+    ts_ = ts.getDouble(0.0);
+    
 
     isValueChange = (lastTx_ != tx_ || lastTy_ != ty_ || lastTa_ != ta_);
   }
@@ -271,9 +283,10 @@ public class Limelight extends SubsystemBase {
     putInDashboard("Tx", tx_, 0, 1);
     putInDashboard("Ty", ty_, 0, 2);
     putInDashboard("Ta", ta_, 0, 3);
+    putInDashboard("Ts", ts_, 1, 1);
 
-    // putInDashboard("Angle", getAngleToTarget(), 1, 0);
-    // putInDashboard("Distance", getDistanceToTarget(), 1, 1);
+    putInDashboard("Angle", getAngleToTarget(RobotContainer.navxSystem.getAngle()), 1, 3);
+    putInDashboard("Distance", getDistanceToTarget(), 1, 2);
   }
 
   public void putInDashboard(String key, Object value, int columnIndex, int rowIndex) {

@@ -27,7 +27,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static final Joystick driveJoystick = new Joystick(0);
   public static final SuperNavX navxSystem = new SuperNavX("Navx");
-  public final Limelight limelight = new Limelight.Builder().build();
+  public final Limelight limelight = new Limelight.Builder().setPitchAngle(56).setHigh(1.64).build();
 
 
   // all subsystems
@@ -43,7 +43,7 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    buttons.loadButtons(driveSystem, collectionSystem, cartridgeSystem, kickerSystem, shootSystem);
+    buttons.loadButtons(driveSystem, collectionSystem, cartridgeSystem, kickerSystem, shootSystem, limelight, navxSystem);
     configureButtonBindings();
   }
 

@@ -3,16 +3,18 @@ package frc.util.electronics.sensors;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;
+import frc.util.SuperInterface;
+import frc.util.commands.ResetSensorsCommand;
 import frc.util.dashboard.SuperSystem;
 
-public class SuperNavX extends SuperSystem {
+public class SuperNavX extends SuperSystem implements SuperInterface {
   private AHRS navX = new AHRS(SPI.Port.kMXP);
 
   public SuperNavX(String name) {
     super(name);
     this.resetNavx();
-    // getTab().addCommandToDashboard("ResetSensor", new ResetSensorsCommand(this,
-    // 0));
+    getTab().addCommandToDashboard("ResetSensor", new ResetSensorsCommand(this,
+    0));
   }
 
   @Override
@@ -22,6 +24,13 @@ public class SuperNavX extends SuperSystem {
     getTab().putInDashboard("NavX Roll", getRoll(), 2, 2);
     getTab().putInDashboard("NavX Yaw", getYaw(), 2, 3);
 
+  }
+  @Override
+  public void periodic() {
+    getTab().putInDashboard("NavX Angle", getAngle(), 2, 0);
+    getTab().putInDashboard("NavX Pitch", getPitch(), 2, 1);
+    getTab().putInDashboard("NavX Roll", getRoll(), 2, 2);
+    getTab().putInDashboard("NavX Yaw", getYaw(), 2, 3);
   }
 
   public float getYaw() {
@@ -37,7 +46,7 @@ public class SuperNavX extends SuperSystem {
   }
 
   public double getAngle() {
-    return -navX.getAngle();
+    return navX.getAngle();
   }
 
   public double getAngle360() {
@@ -59,5 +68,10 @@ public class SuperNavX extends SuperSystem {
 
   public double getRate() {
     return navX.getRate();
+  }
+
+  @Override
+  public void resetSensors(double pos) {
+    resetNavx();
   }
 }

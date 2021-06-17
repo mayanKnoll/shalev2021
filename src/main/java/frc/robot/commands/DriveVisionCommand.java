@@ -7,6 +7,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSystem;
 import frc.util.PID.Gains;
+import frc.util.PID.PIDController;
+import frc.util.electronics.sensors.SuperNavX;
 import frc.util.vision.Limelight;
 import frc.util.vision.Limelight.limelightCameraMode;
 import frc.util.vision.Limelight.limelightLEDMode;
@@ -15,14 +17,16 @@ public class DriveVisionCommand extends CommandBase {
 
   private DriveSystem driveSystem;
   private Limelight limelight;
-  private Gains gainsX;
-  private double maxSpeed;
+  private PIDController xController, zController, yController;
+  private SuperNavX navX;
 
-  public DriveVisionCommand(DriveSystem driveSystem, Limelight limelight, Gains gainsX, double maxSpeed) {
+  public DriveVisionCommand(DriveSystem driveSystem, Limelight limelight, SuperNavX navX, Gains gainsX, Gains gainsY, Gains gainsZ, double maxSpeed, double posZ, double posX, double posY) {
     this.driveSystem = driveSystem;
     this.limelight = limelight;
-    this.gainsX = gainsX;
-    this.maxSpeed = maxSpeed;
+    this.navX = navX;
+    this.xController = new PIDController(gainsX, posX, maxSpeed);
+    this.zController = new PIDController(gainsZ, posZ, maxSpeed);
+    this.yController = new PIDController(gainsY, posY, maxSpeed);
 
     addRequirements(driveSystem);
   }
@@ -37,7 +41,11 @@ public class DriveVisionCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSystem.drive(0, 0, Math.min(limelight.getX() * gainsX.kp, maxSpeed));
+    driveSystem.drive(
+        xController.getOutput(limelight.getX()),
+        yController.getOutput(limelight.getY()),
+        zController.getOutput(limelight.getAngleToTarget(navX.getAngle()))
+    );
   }
 
   // Called once the command ends or is interrupted.
@@ -45,6 +53,9 @@ public class DriveVisionCommand extends CommandBase {
   public void end(boolean interrupted) {
     driveSystem.setMotorsOutput(0);
     driveSystem.setAngleMotorsOutput(0);
+
+    limelight.setCameraMode(limelightCameraMode.kView);
+    limelight.setLEDMode(limelightLEDMode.kOff);
   }
 
   // Returns true when the command should end.

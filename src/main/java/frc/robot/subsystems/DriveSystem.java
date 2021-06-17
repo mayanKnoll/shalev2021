@@ -10,6 +10,7 @@ import frc.robot.commands.DriveCommand;
 import frc.util.Pair;
 import frc.util.SuperInterface;
 import frc.util.commands.ResetSensorsCommand;
+import frc.util.dashboard.PID_VA;
 import frc.util.dashboard.SuperSystem;
 
 public class DriveSystem extends SuperSystem implements SuperInterface {
@@ -22,6 +23,8 @@ public class DriveSystem extends SuperSystem implements SuperInterface {
   public DriveSystem(String name) {
     super(name);
     getTab().addCommandToDashboard("Reset Sensors", new ResetSensorsCommand(this, 0));
+    PID_VA visionPid_VA_X = new PID_VA("visionGainsX", getTab(), Constants.visionGainsX, 0, 0);
+    // PID_VA visionPid_VA_Z = new PID_VA("visionGainsZ", getTab(), Constants.visionGainsZ, 0, 0);
     modules = new SwerveModule[Constants.NUMBER_OF_MODULES];
     modules[0] = FR_Module = new SwerveModule(Constants.SWERVE_FR_ANGLE_MOTOR_CHANNEL,
         Constants.SWERVE_FR_WHEEL_MOTOR_CAN_ID, Constants.SWERVE_FR_ANGLE_ENCODER_CHANNEL, Constants.SWERVE_FR_INVERTED,
