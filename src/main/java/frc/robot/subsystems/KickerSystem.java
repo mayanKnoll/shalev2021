@@ -16,7 +16,7 @@ public class KickerSystem extends OutputSystem{
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    getTab().putInDashboard("swit;lkjhch", getMicroSwitch());
   }
   public boolean getMicroSwitch(){
     return !microSwitch.get();

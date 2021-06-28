@@ -14,9 +14,9 @@ public class CollectCommandGroup extends ParallelCommandGroup {
   public CollectCommandGroup(KickerSystem kickerSystem, CartridgeSystem cartridgeSystem, CollectionSystem collectionSystem) {
 
     
-    super(new SetOutputCommand(kickerSystem, Constants.KICKER_SPEED)  
+    super(new SetOutputCommand(kickerSystem, Constants.KICKER_SPEED) , 
           //new SetOutputCommand(cartridgeSystem, Constants.CARTRIDGE_SPEED), 
-          //new SetOutputCommand(collectionSystem, Constants.COLLECT_SPEED)
+          new SetOutputCommand(collectionSystem, Constants.COLLECT_SPEED)
           );
   }
 }

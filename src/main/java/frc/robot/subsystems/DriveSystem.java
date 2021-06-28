@@ -23,7 +23,9 @@ public class DriveSystem extends SuperSystem implements SuperInterface {
   public DriveSystem(String name) {
     super(name);
     getTab().addCommandToDashboard("Reset Sensors", new ResetSensorsCommand(this, 0));
-    PID_VA visionPid_VA_X = new PID_VA("visionGainsX", getTab(), Constants.visionGainsX, 0, 0);
+        PID_VA pid_angle = new PID_VA("pid_angle", getTab(), Constants.SWERVE_ANGLE_PID_GAINS, 3, 3);
+
+    // PID_VA visionPid_VA_X = new PID_VA("visionGainsX", getTab(), Constants.visionGainsX, 0, 0);
     // PID_VA visionPid_VA_Z = new PID_VA("visionGainsZ", getTab(), Constants.visionGainsZ, 0, 0);
     modules = new SwerveModule[Constants.NUMBER_OF_MODULES];
     modules[0] = FR_Module = new SwerveModule(Constants.SWERVE_FR_ANGLE_MOTOR_CHANNEL,

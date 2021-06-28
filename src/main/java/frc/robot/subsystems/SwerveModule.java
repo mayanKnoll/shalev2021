@@ -1,14 +1,18 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import frc.robot.Constants;
 import frc.util.Pair;
+import frc.util.PID.Gains;
 import frc.util.PID.PIDController;
 import frc.util.electronics.motor.SuperMotor;
 import frc.util.electronics.motor.SuperSparkMax;
+import frc.util.electronics.motor.SuperTalonFX;
 import frc.util.electronics.motor.SuperVictorSP;
 import frc.util.electronics.sensors.SuperNavX;
 
@@ -36,8 +40,8 @@ public class SwerveModule {
         /*
          * if (isSim) wheelMotor = new SuperVictorSP(wheelMotorCanID); else
          */
-        wheelMotor = new SuperSparkMax(wheelMotorCanID, MotorType.kBrushless, 60, inverted, IdleMode.kBrake);
-
+        // wheelMotor = new SuperSparkMax(wheelMotorCanID, MotorType.kBrushless, 60, inverted, IdleMode.kBrake);
+        wheelMotor = new SuperTalonFX(wheelMotorCanID, 60, inverted, false, NeutralMode.Coast, new Gains("g",0,0,0), TalonFXControlMode.PercentOutput);
         angleEncoder = new DutyCycleEncoder(encoderChannel);
         angleEncoder.setDistancePerRotation(Constants.DEGREES_PER_ENCODER_ROTATION);
 
@@ -99,7 +103,7 @@ public class SwerveModule {
     public void drive(double targetAngle, double speed) {
         // System.out.println("t" + targetAngle);
 
-        double currAngle = getEncoderAngle();
+        double currAngle = getEncoderAngle() - offset;
         double currAngleMod = currAngle < 0 ? (currAngle % 360) + 360 : (currAngle % 360);
 
         currAngleMod += 3211;

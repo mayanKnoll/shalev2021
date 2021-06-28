@@ -41,10 +41,10 @@ public class RobotButtons {
 
     public void loadButtons(DriveSystem driveSystem, CollectionSystem collectionSystem, CartridgeSystem cartridgeSystem, KickerSystem kickerSystem, ShootSystem shootSystem, Limelight limelight, SuperNavX navX){
         intakeButton.whileActiveContinuous(new CollectCommandGroup(kickerSystem, cartridgeSystem, collectionSystem));
-        shootingButton.whileActiveContinuous(new ShootingCommand(shootSystem, cartridgeSystem, kickerSystem, 4000));
-        reverseButton.whileActiveContinuous(new SetOutputCommand(cartridgeSystem, -0.5));
-        testButton.whileActiveContinuous(new ShootingCommandGroup(kickerSystem, cartridgeSystem, shootSystem, 2000));
-        visionButton.whileActiveContinuous(new DriveVisionCommand(driveSystem, limelight, navX, Constants.visionGainsX , Constants.visionGainsY, Constants.visionGainsZ ,0.8, 0, 0 , 0));
+        // shootingButton.whileActiveContinuous(new ShootingCommand(shootSystem, cartridgeSystem, kickerSystem, 4000));
+        // reverseButton.whileActiveContinuous(new SetOutputCommand(cartridgeSystem, -0.5));
+        // testButton.whileActiveContinuous(new ShootingCommandGroup(kickerSystem, cartridgeSystem, shootSystem, 2000));
+        // visionButton.whileActiveContinuous(new DriveVisionCommand(driveSystem, limelight, navX, Constants.visionGainsX , Constants.visionGainsY, Constants.visionGainsZ ,0.8, 0, 0 , 0));
     }
 }
 

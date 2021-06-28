@@ -7,7 +7,7 @@ import frc.util.OutputSystem;
 public class CollectionSystem extends OutputSystem{
   
   VictorSP rightMotor = new VictorSP(Constants.COLLECTION_RIGHT_MOTOR_ID); 
-  VictorSP leftMotor = new VictorSP(Constants.COLLECTION_LEFT_MOTOR_ID); 
+//  VictorSP leftMotor = new VictorSP(Constants.COLLECTION_LEFT_MOTOR_ID); 
 
   public CollectionSystem() {
     super("Collection System");
@@ -19,7 +19,7 @@ public class CollectionSystem extends OutputSystem{
   }
 
   public void setOutput(double output){
-    leftMotor.set(output);
+//    leftMotor.set(output);
     rightMotor.set(output);
   }
 }
