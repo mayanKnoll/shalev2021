@@ -12,6 +12,7 @@ import frc.robot.subsystems.CartridgeSystem;
 import frc.robot.subsystems.CollectionSystem;
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.KickerSystem;
+import frc.robot.subsystems.PitchSystem;
 import frc.robot.subsystems.ShootSystem;
 import frc.util.electronics.sensors.SuperNavX;
 import frc.util.vision.Limelight;
@@ -36,6 +37,7 @@ public class RobotContainer {
   public final CartridgeSystem cartridgeSystem = new CartridgeSystem();
   public final KickerSystem kickerSystem = new KickerSystem();
   public final ShootSystem shootSystem = new ShootSystem();
+  public final PitchSystem pitchSystem = new PitchSystem();
 
   public final RobotButtons buttons = new RobotButtons(driveJoystick);
 
@@ -43,7 +45,7 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    buttons.loadButtons(driveSystem, collectionSystem, cartridgeSystem, kickerSystem, shootSystem, limelight, navxSystem);
+    buttons.loadButtons(driveSystem, collectionSystem, cartridgeSystem, kickerSystem, shootSystem, limelight, navxSystem, pitchSystem);
     configureButtonBindings();
   }
 

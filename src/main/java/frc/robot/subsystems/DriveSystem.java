@@ -56,14 +56,14 @@ public class DriveSystem extends SuperSystem implements SuperInterface {
     FR_Module.updateCord(RobotContainer.navxSystem);
     getTab().putInDashboard("center x: ", getCenterRobot().getFirst());
     getTab().putInDashboard("center y: ", getCenterRobot().getSecond());
-    getTab().putInDashboard("FL ANGLE: ", FL_Module.getEncoderAngle());
-    getTab().putInDashboard("FR ANGLE: ", FR_Module.getEncoderAngle());
-    getTab().putInDashboard("BL ANGLE: ", BL_Module.getEncoderAngle());
-    getTab().putInDashboard("BR ANGLE: ", BR_Module.getEncoderAngle());
-    getTab().putInDashboard("FL drive: ", FL_Module.getEncoderDistance());
-    getTab().putInDashboard("FR drive: ", FR_Module.getEncoderDistance());
-    getTab().putInDashboard("BL drive: ", BL_Module.getEncoderDistance());
-    getTab().putInDashboard("BR drive: ", BR_Module.getEncoderDistance());
+    getTab().putInDashboard("FL ANGLE: ", FL_Module.getEncoderAngle() % 360);
+    getTab().putInDashboard("FR ANGLE: ", FR_Module.getEncoderAngle() % 360);
+    getTab().putInDashboard("BL ANGLE: ", BL_Module.getEncoderAngle() % 360);
+    getTab().putInDashboard("BR ANGLE: ", BR_Module.getEncoderAngle() % 360);
+    // getTab().putInDashboard("FL drive: ", FL_Module.getEncoderDistance());
+    // getTab().putInDashboard("FR drive: ", FR_Module.getEncoderDistance());
+    // getTab().putInDashboard("BL drive: ", BL_Module.getEncoderDistance());
+    // getTab().putInDashboard("BR drive: ", BR_Module.getEncoderDistance());
     int i = 1;
     for (SwerveModule module : modules) {
       getTab().putInDashboard("error " + i + ": ", module.getError());
@@ -100,11 +100,14 @@ public class DriveSystem extends SuperSystem implements SuperInterface {
     double b = x + (z * (Constants.ROBOT_LENGTH / R));
     double c = y - (z * (Constants.ROBOT_WIDTH / R));
     double d = y + (z * (Constants.ROBOT_WIDTH / R));
+    //System.out.println("asd"+a + " " + b + " " + c + " " + d);
 
     double frAngle = Math.toDegrees(Math.atan2(b, c)) + 180;
     double flAngle = Math.toDegrees(Math.atan2(b, d)) + 180;
     double blAngle = Math.toDegrees(Math.atan2(a, d)) + 180;
     double brAngle = Math.toDegrees(Math.atan2(a, c)) + 180;
+
+    //System.out.println("this"+frAngle + " " + flAngle + " " + blAngle + " " + brAngle);
 
     double frSpeed = Math.sqrt(b * b + c * c);
     double flSpeed = Math.sqrt(b * b + d * d);

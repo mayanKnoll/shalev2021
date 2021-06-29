@@ -39,7 +39,7 @@ public class SuperTalonFX extends TalonFX implements SuperMotor {
             Gains gains, TalonFXControlMode mode) {
         super(deviceNumber);
         this.mode = mode;
-
+        
         configFactoryDefault();
         configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
         setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 20);
@@ -55,7 +55,7 @@ public class SuperTalonFX extends TalonFX implements SuperMotor {
         config_kP(0, gains.kp);
         config_kI(0, gains.ki);
         config_kD(0, gains.kd);
-        setSelectedSensorPosition(0);
+        setSelectedSensorPosition(0, 0, 0);
     }
 
     /**

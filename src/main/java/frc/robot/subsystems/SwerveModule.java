@@ -103,7 +103,9 @@ public class SwerveModule {
     public void drive(double targetAngle, double speed) {
         // System.out.println("t" + targetAngle);
 
-        double currAngle = getEncoderAngle() - offset;
+ 
+        double currAngle = getEncoderAngle();
+        //System.out.println("c" + currAngle);
         double currAngleMod = currAngle < 0 ? (currAngle % 360) + 360 : (currAngle % 360);
 
         currAngleMod += 3211;
@@ -127,8 +129,7 @@ public class SwerveModule {
         }
 
         targetAngle += currAngle - currAngleMod;
-        // System.out.println("c" + currAngle);
-        // System.out.println("t" + targetAngle);
+      //  System.out.println("t" + targetAngle);
 
         this.setModuleAngle(targetAngle);
         this.goToPositionAngle(currAngle);

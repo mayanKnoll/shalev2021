@@ -31,8 +31,8 @@ public class KickToTouchCommand extends CommandBase {
     if (!kickerSystem.getMicroSwitch() /*&& shootSystem.getVelocity() >= shootSystem.getVelDesired() - 100*/){
       kickerSystem.setOutput(output);
     } else {
-      System.out.println("---------------------");
-      System.out.println(kickerSystem.toString());
+      //System.out.println("---------------------");
+      //System.out.println(kickerSystem.toString());
       kickerSystem.setOutput(0);
     }
   }

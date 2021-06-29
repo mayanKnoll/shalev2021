@@ -28,10 +28,16 @@ public class DriveCommand extends CommandBase {
   public void execute() {
 
     double x = RobotContainer.driveJoystick.getRawAxis(4);
-    double y = -RobotContainer.driveJoystick.getRawAxis(5);
+    double y = -RobotContainer.driveJoystick.getRawAxis(5) ;
     double z = RobotContainer.driveJoystick.getRawAxis(0);
-
-    // driveSystem.fieldOrientedDrive(x, y, z);
+    System.out.println(x);
+    System.out.println(y);
+    System.out.println(z);
+    x = Math.abs(x) > 0.02 ? x : 0;
+    y = Math.abs(y) > 0.02 ? y : 0;
+    z = Math.abs(z) > 0.02 ? z : 0;
+    //driveSystem.fieldOrientedDrive(x, y, z);
+    
     driveSystem.drive(x, y, z);
   }
 

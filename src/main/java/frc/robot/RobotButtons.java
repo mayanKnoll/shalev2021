@@ -18,6 +18,7 @@ import frc.robot.subsystems.CartridgeSystem;
 import frc.robot.subsystems.CollectionSystem;
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.KickerSystem;
+import frc.robot.subsystems.PitchSystem;
 import frc.robot.subsystems.ShootSystem;
 import frc.util.electronics.sensors.SuperNavX;
 import frc.util.vision.Limelight;
@@ -39,9 +40,9 @@ public class RobotButtons {
     Trigger testButton = new Trigger(() -> driverJoystick.getRawButton(1));
     Trigger visionButton = new Trigger(() -> driverJoystick.getRawButton(3));
 
-    public void loadButtons(DriveSystem driveSystem, CollectionSystem collectionSystem, CartridgeSystem cartridgeSystem, KickerSystem kickerSystem, ShootSystem shootSystem, Limelight limelight, SuperNavX navX){
+    public void loadButtons(DriveSystem driveSystem, CollectionSystem collectionSystem, CartridgeSystem cartridgeSystem, KickerSystem kickerSystem, ShootSystem shootSystem, Limelight limelight, SuperNavX navX, PitchSystem pitchSystem){
         intakeButton.whileActiveContinuous(new CollectCommandGroup(kickerSystem, cartridgeSystem, collectionSystem));
-        // shootingButton.whileActiveContinuous(new ShootingCommand(shootSystem, cartridgeSystem, kickerSystem, 4000));
+        shootingButton.whileActiveContinuous(new ShootingCommand(shootSystem, cartridgeSystem, kickerSystem, 2000));
         // reverseButton.whileActiveContinuous(new SetOutputCommand(cartridgeSystem, -0.5));
         // testButton.whileActiveContinuous(new ShootingCommandGroup(kickerSystem, cartridgeSystem, shootSystem, 2000));
         // visionButton.whileActiveContinuous(new DriveVisionCommand(driveSystem, limelight, navX, Constants.visionGainsX , Constants.visionGainsY, Constants.visionGainsZ ,0.8, 0, 0 , 0));
