@@ -1,10 +1,7 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSystem;
 
@@ -17,38 +14,42 @@ public class DriveCommand extends CommandBase {
     addRequirements(sys);
   }
 
-  // Called when the command is initially scheduled.
-  @Override
+ @Override
   public void initialize() {
 
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    double x = RobotContainer.driveJoystick.getRawAxis(4);
-    double y = -RobotContainer.driveJoystick.getRawAxis(5) ;
-    double z = RobotContainer.driveJoystick.getRawAxis(0);
-    System.out.println(x);
-    System.out.println(y);
-    System.out.println(z);
+    double x = RobotContainer.driveJoystick.getRawAxis(0);
+    double y = -RobotContainer.driveJoystick.getRawAxis(1) ;
+    double z = RobotContainer.driveJoystick.getRawAxis(4);
     x = Math.abs(x) > 0.02 ? x : 0;
     y = Math.abs(y) > 0.02 ? y : 0;
     z = Math.abs(z) > 0.02 ? z : 0;
-    //driveSystem.fieldOrientedDrive(x, y, z);
-    
-    driveSystem.drive(x, y, z);
+    x = Math.pow(x, 3);
+    y = Math.pow(y, 3);
+
+    if(RobotContainer.driveJoystick.getPOV() != -1){
+      z = RobotContainer.driveJoystick.getPOV();
+      double angle = RobotContainer.navxSystem.getAngle360();
+      z = (z - angle) * Constants.SWERVE_ANGLE_PID_GAINS.kp;
+    }
+    else {
+      z = Math.pow(z, 3);
+    }
+
+    driveSystem.fieldOrientedDrive(x, y, z);
+    // driveSystem.drive(x, y, z);
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     driveSystem.setMotorsOutput(0);
     driveSystem.setAngleMotorsOutput(0);
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;

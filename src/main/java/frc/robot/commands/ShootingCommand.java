@@ -9,20 +9,22 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.CartridgeSystem;
 import frc.robot.subsystems.KickerSystem;
+import frc.robot.subsystems.PitchSystem;
 import frc.robot.subsystems.ShootSystem;
 
 public class ShootingCommand extends CommandBase {
   CartridgeSystem cartridgeSystem;
   ShootSystem shootSystem;
   KickerSystem kickerSystem;
-  double velocity;
-  public ShootingCommand(ShootSystem shootSystem, CartridgeSystem cartridgeSystem, KickerSystem kickerSystem, double velocity) {
+  PitchSystem pitchSystem;
+  public ShootingCommand(ShootSystem shootSystem, CartridgeSystem cartridgeSystem, KickerSystem kickerSystem, PitchSystem pitchSystem) {
     this.shootSystem = shootSystem;
     this.cartridgeSystem = cartridgeSystem;
     this.kickerSystem = kickerSystem;
-    this.velocity = velocity;
+    this.pitchSystem = pitchSystem;
     addRequirements(shootSystem, cartridgeSystem, kickerSystem);
   }
 
@@ -35,10 +37,14 @@ public class ShootingCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // velocity = (int)shootSystem.getTab().getFromDashboard("Shoot Velocity", 0);
+    double velocity = (int)shootSystem.getTab().getFromDashboard("Shoot Velocity", 0);
+    // double velocity = RobotContainer.limelight.getY() * 2345;
+    //double high = RobotContainer.limelight.getY() * 2345;
     shootSystem.setOutput(velocity);
-
-    if(shootSystem.getVelocity() >= velocity - 100){
+    //pitchSystem.setOutput(high);
+    // shootSystem.setOutput(shootSystem.getTab().getFromDashboard("Shoot Velocity", 0));
+    System.out.println(shootSystem.getVelocity());
+    if(shootSystem.getVelocity() >= velocity - 100 /*&& pitchSystem.getPosition() > high - 1 && pitchSystem.getPosition() < high + 1*/){
       kickerSystem.setOutput(Constants.KICKER_SPEED);
       cartridgeSystem.setOutput(Constants.CARTRIDGE_SPEED);
     }

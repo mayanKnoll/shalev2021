@@ -36,8 +36,7 @@ public class ShootSystem extends OutputSystem {
 
   
   public void stop(){
-    masterMotor.setMode(TalonFXControlMode.PercentOutput);
-    masterMotor.setOutput(0);
+    masterMotor.set(TalonFXControlMode.PercentOutput, 0);
   }
 
   public double getVelocity(){

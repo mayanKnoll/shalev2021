@@ -23,7 +23,7 @@ public class SwerveModule {
     private DutyCycleEncoder angleEncoder;
     private double offset = 0;
     private PIDController PID_Controller;
-
+    private double lastSpeed = 0;
     private double lastEncoder = 0;
     private double x = 0;
     private double y = 0;
@@ -69,7 +69,10 @@ public class SwerveModule {
     }
 
     public void setWheelMotorOutput(double speed) {
+        int direction = speed > 0 ? 1 : -1;
+        speed = Math.abs(speed) > Math.abs(lastSpeed) + 0.004 ? lastSpeed + 0.004 * direction : speed; 
         wheelMotor.setOutput(speed);
+        lastSpeed = speed;
     }
 
     public void setAngleMotorSpeed(double speed) {

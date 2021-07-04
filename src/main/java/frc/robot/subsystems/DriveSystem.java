@@ -84,7 +84,7 @@ public class DriveSystem extends SuperSystem implements SuperInterface {
   }
 
   public void fieldOrientedDrive(double x, double y, double z) {
-    double angleRad = Math.toRadians(RobotContainer.navxSystem.getAngle360());
+    double angleRad = Math.toRadians(-RobotContainer.navxSystem.getAngle360());
     double temp = x * Math.cos(angleRad) + y * Math.sin(angleRad);
     y = -x * Math.sin(angleRad) + y * Math.cos(angleRad);
     x = temp;

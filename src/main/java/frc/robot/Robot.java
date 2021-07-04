@@ -31,7 +31,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     m_robotContainer.shootSystem.getTab().putInDashboard("Shoot Velocity", 0);
-
+    m_robotContainer.pitchSystem.getTab().putInDashboard("pitch position", 0);
   }
 
   /**

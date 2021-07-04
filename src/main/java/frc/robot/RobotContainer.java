@@ -27,8 +27,9 @@ import frc.util.vision.Limelight;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static final Joystick driveJoystick = new Joystick(0);
+  public static final Joystick copilotJoystick = new Joystick(1);
   public static final SuperNavX navxSystem = new SuperNavX("Navx");
-  public final Limelight limelight = new Limelight.Builder().setPitchAngle(56).setHigh(1.64).build();
+  public static final Limelight limelight = new Limelight.Builder().setPitchAngle(56).setHigh(1.64).build();
 
 
   // all subsystems
@@ -39,7 +40,7 @@ public class RobotContainer {
   public final ShootSystem shootSystem = new ShootSystem();
   public final PitchSystem pitchSystem = new PitchSystem();
 
-  public final RobotButtons buttons = new RobotButtons(driveJoystick);
+  public final RobotButtons buttons = new RobotButtons(driveJoystick, copilotJoystick);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.

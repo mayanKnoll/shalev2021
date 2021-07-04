@@ -9,8 +9,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.CollectCommand;
 import frc.robot.commands.CollectCommandGroup;
 import frc.robot.commands.DriveVisionCommand;
+import frc.robot.commands.MotorDirectionTest;
 import frc.robot.commands.SetOutputCommand;
 import frc.robot.commands.ShootingCommand;
 import frc.robot.commands.ShootingCommandGroup;
@@ -27,23 +29,30 @@ import frc.util.vision.Limelight;
 public class RobotButtons {
     // all joysticks:
     public static Joystick driverJoystick;
+    public static Joystick copilotJoystick;
 
-    public RobotButtons(Joystick j){
+    public RobotButtons(Joystick j, Joystick c){
         driverJoystick = j;
+        copilotJoystick = c;
     }
 
     // all the triggers:
-    Trigger intakeButton = new Trigger(() -> driverJoystick.getRawButton(5));
-    Trigger reverseButton = new Trigger(() -> driverJoystick.getRawButton(6));
-
-    Trigger shootingButton = new Trigger(() -> driverJoystick.getRawButton(2));
-    Trigger testButton = new Trigger(() -> driverJoystick.getRawButton(1));
+    Trigger intakeButton = new Trigger(() -> copilotJoystick.getPOV() == 270);
+    Trigger emissionButton = new Trigger(() -> copilotJoystick.getRawButton(1));
+    
+    Trigger cartridgeButton = new Trigger(() -> copilotJoystick.getRawButton(4));
+    //Trigger pitchTestButton = new Trigger(() -> driverJoystick.getRawButton(X));
+    Trigger shootingButton = new Trigger(() -> copilotJoystick.getPOV() == 90);
+    //Trigger testButton = new Trigger(() -> driverJoystick.getRawButton(X));
     Trigger visionButton = new Trigger(() -> driverJoystick.getRawButton(3));
-
+    public static int position = 100;
     public void loadButtons(DriveSystem driveSystem, CollectionSystem collectionSystem, CartridgeSystem cartridgeSystem, KickerSystem kickerSystem, ShootSystem shootSystem, Limelight limelight, SuperNavX navX, PitchSystem pitchSystem){
-        intakeButton.whileActiveContinuous(new CollectCommandGroup(kickerSystem, cartridgeSystem, collectionSystem));
-        shootingButton.whileActiveContinuous(new ShootingCommand(shootSystem, cartridgeSystem, kickerSystem, 2000));
-        // reverseButton.whileActiveContinuous(new SetOutputCommand(cartridgeSystem, -0.5));
+        intakeButton.whileActiveContinuous(new CollectCommand(collectionSystem, cartridgeSystem, -1));
+        emissionButton.whileActiveContinuous(new CollectCommand(collectionSystem, cartridgeSystem, 1));
+        cartridgeButton.whileActiveContinuous(new SetOutputCommand(cartridgeSystem, Constants.CARTRIDGE_SPEED));
+        shootingButton.whileActiveContinuous(new ShootingCommand(shootSystem, cartridgeSystem, kickerSystem, pitchSystem));
+        //pitchTestButton.whileActiveContinuous(new MotorDirectionTest(pitchSystem, position));
+        // pitchTestButton.whileActiveContinuous(new MotorDirectionTest(pitchSystem, -100));
         // testButton.whileActiveContinuous(new ShootingCommandGroup(kickerSystem, cartridgeSystem, shootSystem, 2000));
         // visionButton.whileActiveContinuous(new DriveVisionCommand(driveSystem, limelight, navX, Constants.visionGainsX , Constants.visionGainsY, Constants.visionGainsZ ,0.8, 0, 0 , 0));
     }

@@ -25,8 +25,8 @@ public final class Constants {
     public static final int SHOOT_MOTOR_SLAVE_ID = 5;
     public static final int PITCH_MOTOR_CAN_ID = 10;
     
-    public static final Gains SHOOT_GAINS = new Gains("put values", 0, 1, 0, 0, 0, 0, 0);
-
+    public static final Gains SHOOT_GAINS = new Gains("put values", 0, 0, 0.5, 0.002, 0.45, 0, 0);
+    public static Gains PITCH_GAINS = new Gains("pitch", 0.15, 0, 0);
     public static final int CARTRIDGE_MOTOR_ID = 6;
     public static final int KICKER_MOTOR_ID = 8;
     public static final int COLLECTION_LEFT_MOTOR_ID = 7;
@@ -65,7 +65,7 @@ public final class Constants {
     public static final int NUMBER_OF_MODULES = 4;
     public static final Gains SWERVE_ANGLE_PID_GAINS = new Gains("SWERVE_ANGLE_PID_GAINS", 0.02, 0, 0.015);
 
-    public static final double KICKER_SPEED = -1;
-    public static final double CARTRIDGE_SPEED = 0.8;
-    public static final double COLLECT_SPEED = -1;
+    public static final double KICKER_SPEED = 1;
+    public static final double CARTRIDGE_SPEED = 0.7;
+    public static final double COLLECT_SPEED = -0.9;
 }
