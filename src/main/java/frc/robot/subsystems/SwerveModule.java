@@ -69,10 +69,10 @@ public class SwerveModule {
     }
 
     public void setWheelMotorOutput(double speed) {
-        int direction = speed > 0 ? 1 : -1;
-        speed = Math.abs(speed) > Math.abs(lastSpeed) + 0.004 ? lastSpeed + 0.004 * direction : speed; 
+        // int direction = speed > 0 ? 1 : -1;
+        // speed = Math.abs(speed) > Math.abs(lastSpeed) + 0.004 ? lastSpeed + 0.004 * direction : speed; 
         wheelMotor.setOutput(speed);
-        lastSpeed = speed;
+        //lastSpeed = speed;
     }
 
     public void setAngleMotorSpeed(double speed) {
@@ -102,7 +102,7 @@ public class SwerveModule {
     private void goToPositionAngle(double currAngle) {
         angleMotor.setOutput(PID_Controller.getOutput(currAngle));
     }
-
+int i = 0;
     public void drive(double targetAngle, double speed) {
         // System.out.println("t" + targetAngle);
 
@@ -132,7 +132,6 @@ public class SwerveModule {
         }
 
         targetAngle += currAngle - currAngleMod;
-      //  System.out.println("t" + targetAngle);
 
         this.setModuleAngle(targetAngle);
         this.goToPositionAngle(currAngle);

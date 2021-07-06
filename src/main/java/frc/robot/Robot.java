@@ -31,7 +31,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     m_robotContainer.shootSystem.getTab().putInDashboard("Shoot Velocity", 0);
-    m_robotContainer.pitchSystem.getTab().putInDashboard("pitch position", 0);
+    m_robotContainer.shootSystem.getTab().putInDashboard("pitch position", 0);
   }
 
   /**
@@ -98,6 +98,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    // m_robotContainer.cartridgeSystem.periodic();
   }
 
   @Override

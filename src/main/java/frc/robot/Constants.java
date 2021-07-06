@@ -16,22 +16,22 @@ public final class Constants {
     public static final double ROBOT_LENGTH = 0.61;
     public static final double ROBOT_WIDTH = 0.61;
 
-    public static  Gains visionGainsZ = new Gains("visionZ", 0, 0, 0);//-0.002
-    public static  Gains visionGainsX = new Gains("visionX", -0.05, 0, 0); //-0.05
-    public static  Gains visionGainsY = new Gains("visionY", 0.0, 0, 0); // 0.02
+    public static  Gains visionGainsZ = new Gains("visionZ", 0.07, 0, 0);//-0.002
+    public static  Gains visionGainsX = new Gains("visionX", 0.05, 0, 0); //-0.05
+    public static  Gains visionGainsY = new Gains("visionY", 0.15, 0, 0); // 0.02
 
 
     public static final int SHOOT_MOTOR_MASTER_ID = 6;
     public static final int SHOOT_MOTOR_SLAVE_ID = 5;
     public static final int PITCH_MOTOR_CAN_ID = 10;
     
-    public static final Gains SHOOT_GAINS = new Gains("put values", 0, 0, 0.5, 0.002, 0.45, 0, 0);
+    public static final Gains SHOOT_GAINS = new Gains("put values", 0, 0, 0.45, 0.002, 0.45, 0, 0);
     public static Gains PITCH_GAINS = new Gains("pitch", 0.15, 0, 0);
     public static final int CARTRIDGE_MOTOR_ID = 6;
     public static final int KICKER_MOTOR_ID = 8;
     public static final int COLLECTION_LEFT_MOTOR_ID = 7;
     public static final int COLLECTION_RIGHT_MOTOR_ID = 9;
-    public static final int MICRO_SWITCH_CHANNEL = 9;
+    public static final int MICRO_SWITCH_CHANNEL = 7;
     public static final int PITCH_MAGNET_CHANNEL = 4;
 
     public static final int SWERVE_FR_WHEEL_MOTOR_CAN_ID = 4;
@@ -50,8 +50,8 @@ public final class Constants {
     public static final int SWERVE_BR_ANGLE_ENCODER_CHANNEL = 1;
 
     public static final double SWERVE_FR_ANGLE_ENCODER_OFFSET = -252;//-17.7;
-    public static final double SWERVE_FL_ANGLE_ENCODER_OFFSET = -43.5;//-10.2;
-    public static final double SWERVE_BL_ANGLE_ENCODER_OFFSET = -297.7;//-74.5;
+    public static final double SWERVE_FL_ANGLE_ENCODER_OFFSET = 81;//-10.2;
+    public static final double SWERVE_BL_ANGLE_ENCODER_OFFSET = -3.7;//-74.5;
     public static final double SWERVE_BR_ANGLE_ENCODER_OFFSET = -7.7;//-2.2;
 
     public static final boolean SWERVE_FR_INVERTED = true;
@@ -63,9 +63,9 @@ public final class Constants {
     public static final double ENCODER_TO_METER = 1;
     public static final double LEN_MODULE_FROM_CENTER = 1;
     public static final int NUMBER_OF_MODULES = 4;
-    public static final Gains SWERVE_ANGLE_PID_GAINS = new Gains("SWERVE_ANGLE_PID_GAINS", 0.02, 0, 0.015);
+    public static final Gains SWERVE_ANGLE_PID_GAINS = new Gains("SWERVE_ANGLE_PID_GAINS", 0.01, 0, 0.01);
 
     public static final double KICKER_SPEED = 1;
     public static final double CARTRIDGE_SPEED = 0.7;
-    public static final double COLLECT_SPEED = -0.9;
+    public static final double COLLECT_SPEED = 0.9;
 }

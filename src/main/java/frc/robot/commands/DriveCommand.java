@@ -8,7 +8,8 @@ import frc.robot.subsystems.DriveSystem;
 public class DriveCommand extends CommandBase {
   /** Creates a new DriveCommand. */
   DriveSystem driveSystem;
-
+  double lastX = 0;
+  double lastY = 0;
   public DriveCommand(DriveSystem sys) {
     this.driveSystem = sys;
     addRequirements(sys);
@@ -22,24 +23,27 @@ public class DriveCommand extends CommandBase {
   @Override
   public void execute() {
 
-    double x = RobotContainer.driveJoystick.getRawAxis(0);
-    double y = -RobotContainer.driveJoystick.getRawAxis(1) ;
-    double z = RobotContainer.driveJoystick.getRawAxis(4);
+    double x = RobotContainer.driveJoystick.getRawAxis(4);
+    double y = -RobotContainer.driveJoystick.getRawAxis(5);
+    double z = RobotContainer.driveJoystick.getRawAxis(0);
     x = Math.abs(x) > 0.02 ? x : 0;
     y = Math.abs(y) > 0.02 ? y : 0;
     z = Math.abs(z) > 0.02 ? z : 0;
-    x = Math.pow(x, 3);
-    y = Math.pow(y, 3);
+
+    //x = Math.pow(x, 3);
+    //y = Math.pow(y, 3);
+    //z = Math.pow(z, 3);
 
     if(RobotContainer.driveJoystick.getPOV() != -1){
-      z = RobotContainer.driveJoystick.getPOV();
-      double angle = RobotContainer.navxSystem.getAngle360();
-      z = (z - angle) * Constants.SWERVE_ANGLE_PID_GAINS.kp;
-    }
-    else {
-      z = Math.pow(z, 3);
-    }
+      double targetAngle = RobotContainer.driveJoystick.getPOV();
+      double currAngle = RobotContainer.navxSystem.getAngle360();
+      
+      targetAngle = getBestTargetAngle(currAngle, targetAngle);
 
+      double error = (targetAngle - currAngle);
+      double dir = error > 0 ? 1 : -1;
+      z = Math.min(Math.abs(error * Constants.SWERVE_ANGLE_PID_GAINS.kp), 0.5) * dir;
+    }
     driveSystem.fieldOrientedDrive(x, y, z);
     // driveSystem.drive(x, y, z);
   }
@@ -54,4 +58,23 @@ public class DriveCommand extends CommandBase {
   public boolean isFinished() {
     return false;
   }
+
+  public static double getBestTargetAngle(double currAngle, double targetAngle) {
+    double currAngleMod = currAngle < 0 ? (currAngle % 360) + 360 : (currAngle % 360);
+
+    currAngleMod += 3211;
+    targetAngle += 3211;
+
+    double delta = currAngleMod - targetAngle;
+
+    if (delta > 180) {
+        targetAngle += 360;
+    } else if (delta < -180) {
+        targetAngle -= 360;
+    }
+
+    targetAngle += currAngle - currAngleMod;
+
+    return targetAngle;
+}
 }

@@ -24,19 +24,17 @@ public class PitchSystem extends OutputSystem {
   public PitchSystem() {
     super("PitchSystem");
     PID_VA pid = new PID_VA("pitch", getTab(), Constants.PITCH_GAINS, 1, 2);
-    //setDefaultCommand(new SetOutputCommand(this, 10));
+    // setDefaultCommand(new SetOutputCommand(this, 20));
   }
 
   
   @Override
   public void periodic() {
-    getTab().putInDashboard("Pitch Value", getPosition());
+    //getTab().putInDashboard("Pitch Value", getPosition());
     getTab().putInDashboard("Pitch Magnet", getMagnetMode());
-    getTab().putInDashboard("d", pitchMotor.getMotorOutputPercent());
-    getTab().putInDashboard("OutPut", pitchMotor.getOutput());
+    getTab().putInDashboard("potion", getPosition());
     
     if(getMagnetMode()) pitchMotor.reset(0);
-
   }
 
   public void setOutput(double output){
@@ -63,7 +61,7 @@ public class PitchSystem extends OutputSystem {
     position = position > maxPos ? maxPos : position < minPos ? minPos : position;
     //pitchMotor.set(ControlMode.Position, position);
     double pos = getPosition();
-    set((position - pos) * 0.015);
+    set((position - pos) * 0.15);
   }
 
 }

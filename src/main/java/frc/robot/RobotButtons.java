@@ -47,10 +47,10 @@ public class RobotButtons {
     Trigger visionButton = new Trigger(() -> driverJoystick.getRawButton(3));
     public static int position = 100;
     public void loadButtons(DriveSystem driveSystem, CollectionSystem collectionSystem, CartridgeSystem cartridgeSystem, KickerSystem kickerSystem, ShootSystem shootSystem, Limelight limelight, SuperNavX navX, PitchSystem pitchSystem){
-        intakeButton.whileActiveContinuous(new CollectCommand(collectionSystem, cartridgeSystem, -1));
+        intakeButton.whileActiveContinuous(new CollectCommand(collectionSystem, cartridgeSystem, 1));
         emissionButton.whileActiveContinuous(new CollectCommand(collectionSystem, cartridgeSystem, 1));
         cartridgeButton.whileActiveContinuous(new SetOutputCommand(cartridgeSystem, Constants.CARTRIDGE_SPEED));
-        shootingButton.whileActiveContinuous(new ShootingCommand(shootSystem, cartridgeSystem, kickerSystem, pitchSystem));
+        shootingButton.whileActiveContinuous(new ShootingCommand(limelight, driveSystem, shootSystem, cartridgeSystem, kickerSystem, pitchSystem));
         //pitchTestButton.whileActiveContinuous(new MotorDirectionTest(pitchSystem, position));
         // pitchTestButton.whileActiveContinuous(new MotorDirectionTest(pitchSystem, -100));
         // testButton.whileActiveContinuous(new ShootingCommandGroup(kickerSystem, cartridgeSystem, shootSystem, 2000));

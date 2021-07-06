@@ -100,19 +100,18 @@ public class DriveSystem extends SuperSystem implements SuperInterface {
     double b = x + (z * (Constants.ROBOT_LENGTH / R));
     double c = y - (z * (Constants.ROBOT_WIDTH / R));
     double d = y + (z * (Constants.ROBOT_WIDTH / R));
-    //System.out.println("asd"+a + " " + b + " " + c + " " + d);
 
     double frAngle = Math.toDegrees(Math.atan2(b, c)) + 180;
     double flAngle = Math.toDegrees(Math.atan2(b, d)) + 180;
     double blAngle = Math.toDegrees(Math.atan2(a, d)) + 180;
     double brAngle = Math.toDegrees(Math.atan2(a, c)) + 180;
 
-    //System.out.println("this"+frAngle + " " + flAngle + " " + blAngle + " " + brAngle);
 
     double frSpeed = Math.sqrt(b * b + c * c);
     double flSpeed = Math.sqrt(b * b + d * d);
     double blSpeed = Math.sqrt(a * a + d * d);
     double brSpeed = Math.sqrt(a * a + c * c);
+
 
     // System.out.println(frAngle);
 
