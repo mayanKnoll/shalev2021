@@ -18,6 +18,7 @@ public class AutoShootCommandGroup extends SequentialCommandGroup {
   /** Creates a new AutoShootCommandGroup. */
   public AutoShootCommandGroup(ShootSystem shootSystem,DriveSystem driveSystem, CartridgeSystem cartridgeSystem, KickerSystem kickerSystem, PitchSystem pitchSystem) {
     // Add your commands in the addCommands() call, e.g.
+    //
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(deadline(new TimeCommand(11), new ShootingCommand(shootSystem, cartridgeSystem, kickerSystem, pitchSystem)),deadline(new TimeCommand(4), new DriveCommand(driveSystem, -1 , 0)));
   }
