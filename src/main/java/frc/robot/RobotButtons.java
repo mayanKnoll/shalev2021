@@ -13,6 +13,7 @@ import frc.robot.commands.CollectCommand;
 import frc.robot.commands.DriveVisionCommand;
 import frc.robot.commands.Pitch_go_to_position;
 import frc.robot.commands.SetOutputCommand;
+import frc.robot.commands.ShootFasterCommand;
 import frc.robot.commands.ShootingCommandGroup;
 import frc.robot.commands.CloseShootingCommand;
 import frc.robot.commands.climbPositionCommand;
@@ -43,6 +44,7 @@ public class RobotButtons {
     Trigger climbPosition = new Trigger(() -> copilotJoystick.getRawButton(7));
     Trigger climbUp = new Trigger(() -> copilotJoystick.getRawButton(6));
     Trigger climbDown = new Trigger(() -> copilotJoystick.getRawButton(5));
+    Trigger fasterShooter = new Trigger(() -> copilotJoystick.getRawButton(3));
     Trigger closeShootTrigger = new Trigger(() -> copilotJoystick.getRawButton(3));
     Trigger cartridgeButton = new Trigger(() -> copilotJoystick.getRawButton(4));
     Trigger cartridPlitaButton = new Trigger(() -> copilotJoystick.getRawButton(2));
@@ -65,6 +67,7 @@ public class RobotButtons {
         shootingButton.whenInactive(new Pitch_go_to_position(pitchSystem, -100));
         climbPosition.whileActiveContinuous(new climbPositionCommand(climbSystem));
         //if(Constants.)
+        fasterShooter.whileActiveContinuous(new ShootFasterCommand(shootSystem));
         climbDown.whileActiveContinuous(new SetOutputCommand(climbSystem, 1));
         climbUp.whileActiveContinuous(new SetOutputCommand(climbSystem, -1));
         // pitchTestButton.whileActiveContinuous(new MotorDirectionTest(pitchSystem, position));
