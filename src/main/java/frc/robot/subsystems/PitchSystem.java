@@ -8,7 +8,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants;
-import frc.robot.commands.SetOutputCommand;
 import frc.util.OutputSystem;
 import frc.util.dashboard.PID_VA;
 import frc.util.electronics.motor.SuperTalonSRX;
@@ -16,7 +15,8 @@ import frc.util.electronics.motor.SuperTalonSRX;
 public class PitchSystem extends OutputSystem {
 
   // private SuperTalonSRX pitchMotor = new SuperTalonSRX(Constants.PITCH_MOTOR_CAN_ID, 60, true, false, 0, 0.0146, 1, Constants.PITCH_GAINS, ControlMode.Position);
-  private SuperTalonSRX pitchMotor = new SuperTalonSRX(Constants.PITCH_MOTOR_CAN_ID, 60, true, false, 0, 1, 1, Constants.PITCH_GAINS, ControlMode.Position);
+  private SuperTalonSRX pitchMotor = new SuperTalonSRX(Constants.PITCH_MOTOR_CAN_ID, 60, true
+  , false, 0, 1, 1, Constants.PITCH_GAINS, ControlMode.Position);
   // private TalonSRX pitchMotor = new TalonSRX(Constants.PITCH_MOTOR_CAN_ID);
   private DigitalInput magnet = new DigitalInput(Constants.PITCH_MAGNET_CHANNEL);
   double minPos = 0, maxPos = 100;
@@ -58,10 +58,16 @@ public class PitchSystem extends OutputSystem {
 
   public void setPosition(double position){
     // position = position / 0.0146;
+    //System.out.println(position);
     position = position > maxPos ? maxPos : position < minPos ? minPos : position;
-    //pitchMotor.set(ControlMode.Position, position);
+
     double pos = getPosition();
-    set((position - pos) * 0.15);
+    set((position - pos) * 0.05);
+  }
+
+  public void goToMagnet(){
+    if (!getMagnetMode())
+      setOutput(-0.3);
   }
 
 }

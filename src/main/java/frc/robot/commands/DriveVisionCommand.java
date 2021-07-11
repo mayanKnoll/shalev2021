@@ -10,8 +10,6 @@ import frc.util.PID.Gains;
 import frc.util.PID.PIDController;
 import frc.util.electronics.sensors.SuperNavX;
 import frc.util.vision.Limelight;
-import frc.util.vision.Limelight.limelightCameraMode;
-import frc.util.vision.Limelight.limelightLEDMode;
 
 public class DriveVisionCommand extends CommandBase {
 
@@ -19,6 +17,7 @@ public class DriveVisionCommand extends CommandBase {
   private Limelight limelight;
   private PIDController xController, zController, yController;
   private SuperNavX navX;
+  int i = 0;
 
   public DriveVisionCommand(DriveSystem driveSystem, Limelight limelight, SuperNavX navX, Gains gainsX, Gains gainsY, Gains gainsZ, double maxSpeed, double posZ, double posX, double posY) {
     this.driveSystem = driveSystem;
@@ -34,15 +33,14 @@ public class DriveVisionCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    limelight.setCameraMode(limelightCameraMode.kVision);
-    limelight.setLEDMode(limelightLEDMode.kOn);
+    limelight.changeMode(true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     driveSystem.drive(
-        xController.getOutput(limelight.getX()),
+        -xController.getOutput(limelight.getX()),
         yController.getOutput(limelight.getY()),
         zController.getOutput(limelight.getAngleToTarget(navX.getAngle()))
     );
@@ -54,13 +52,14 @@ public class DriveVisionCommand extends CommandBase {
     driveSystem.setMotorsOutput(0);
     driveSystem.setAngleMotorsOutput(0);
 
-    limelight.setCameraMode(limelightCameraMode.kView);
-    limelight.setLEDMode(limelightLEDMode.kOff);
+    limelight.changeMode(false);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if(limelight.getX() < 0.5 && limelight.getX() > -0.5 && limelight.isValid())i++;
+    else i = 0;
+    return i >= 5;
   }
 }

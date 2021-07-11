@@ -10,10 +10,19 @@ public class DriveCommand extends CommandBase {
   DriveSystem driveSystem;
   double lastX = 0;
   double lastY = 0;
+  double x = -2, y = -2;
   public DriveCommand(DriveSystem sys) {
     this.driveSystem = sys;
     addRequirements(sys);
   }
+
+  public DriveCommand(DriveSystem sys, double x, double y){
+    this.x = x;
+    this.y = y;
+    this.driveSystem = sys;
+    addRequirements(sys);
+  }
+
 
  @Override
   public void initialize() {
@@ -23,16 +32,19 @@ public class DriveCommand extends CommandBase {
   @Override
   public void execute() {
 
-    double x = RobotContainer.driveJoystick.getRawAxis(4);
-    double y = -RobotContainer.driveJoystick.getRawAxis(5);
-    double z = RobotContainer.driveJoystick.getRawAxis(0);
+    double z = 0;
+    if(x == -2 && y == -2){
+       x = RobotContainer.driveJoystick.getRawAxis(4);
+       y = -RobotContainer.driveJoystick.getRawAxis(5);
+       z = RobotContainer.driveJoystick.getRawAxis(0);
+      }
     x = Math.abs(x) > 0.02 ? x : 0;
     y = Math.abs(y) > 0.02 ? y : 0;
     z = Math.abs(z) > 0.02 ? z : 0;
 
-    //x = Math.pow(x, 3);
-    //y = Math.pow(y, 3);
-    //z = Math.pow(z, 3);
+    x = Math.pow(x, 3);
+    y = Math.pow(y, 3);
+    z = Math.pow(z, 3);
 
     if(RobotContainer.driveJoystick.getPOV() != -1){
       double targetAngle = RobotContainer.driveJoystick.getPOV();
@@ -44,6 +56,15 @@ public class DriveCommand extends CommandBase {
       double dir = error > 0 ? 1 : -1;
       z = Math.min(Math.abs(error * Constants.SWERVE_ANGLE_PID_GAINS.kp), 0.5) * dir;
     }
+    else if(RobotContainer.driveJoystick.getRawAxis(3) > 0.05){
+      x *= 0.5;
+      y *= 0.5;
+      z *= 0.5;
+    }
+    int direction = x > 0 ? 1 : -1;
+    x = Math.abs(x) > Math.abs(lastX) + 0.008 ? lastX + 0.008 * direction : x;
+    direction = y > 0 ? 1 : -1;
+    y = Math.abs(y) > Math.abs(lastY) + 0.008 ? lastY + 0.008 * direction : y; 
     driveSystem.fieldOrientedDrive(x, y, z);
     // driveSystem.drive(x, y, z);
   }

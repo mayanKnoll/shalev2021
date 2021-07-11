@@ -1,9 +1,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import frc.robot.Constants;
@@ -11,14 +10,13 @@ import frc.util.Pair;
 import frc.util.PID.Gains;
 import frc.util.PID.PIDController;
 import frc.util.electronics.motor.SuperMotor;
-import frc.util.electronics.motor.SuperSparkMax;
 import frc.util.electronics.motor.SuperTalonFX;
 import frc.util.electronics.motor.SuperVictorSP;
 import frc.util.electronics.sensors.SuperNavX;
 
 public class SwerveModule {
     private SuperMotor angleMotor;
-    private SuperMotor wheelMotor;
+    private SuperTalonFX wheelMotor;
 
     private DutyCycleEncoder angleEncoder;
     private double offset = 0;
@@ -42,6 +40,8 @@ public class SwerveModule {
          */
         // wheelMotor = new SuperSparkMax(wheelMotorCanID, MotorType.kBrushless, 60, inverted, IdleMode.kBrake);
         wheelMotor = new SuperTalonFX(wheelMotorCanID, 60, inverted, false, NeutralMode.Coast, new Gains("g",0,0,0), TalonFXControlMode.PercentOutput);
+        wheelMotor.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 40, 40 , 0.5));
+
         angleEncoder = new DutyCycleEncoder(encoderChannel);
         angleEncoder.setDistancePerRotation(Constants.DEGREES_PER_ENCODER_ROTATION);
 

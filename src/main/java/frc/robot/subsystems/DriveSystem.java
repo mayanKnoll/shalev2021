@@ -59,7 +59,7 @@ public class DriveSystem extends SuperSystem implements SuperInterface {
     getTab().putInDashboard("FL ANGLE: ", FL_Module.getEncoderAngle() % 360);
     getTab().putInDashboard("FR ANGLE: ", FR_Module.getEncoderAngle() % 360);
     getTab().putInDashboard("BL ANGLE: ", BL_Module.getEncoderAngle() % 360);
-    getTab().putInDashboard("BR ANGLE: ", BR_Module.getEncoderAngle() % 360);
+    getTab().putInDashboard("Br ANGLE: ", BR_Module.getEncoderAngle() % 360);
     // getTab().putInDashboard("FL drive: ", FL_Module.getEncoderDistance());
     // getTab().putInDashboard("FR drive: ", FR_Module.getEncoderDistance());
     // getTab().putInDashboard("BL drive: ", BL_Module.getEncoderDistance());

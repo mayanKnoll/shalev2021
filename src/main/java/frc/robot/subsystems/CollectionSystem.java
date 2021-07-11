@@ -1,13 +1,8 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.wpilibj.VictorSP;
 import frc.robot.Constants;
 import frc.util.OutputSystem;
-import frc.util.electronics.motor.SuperTalonSRX;
 
 public class CollectionSystem extends OutputSystem{
   

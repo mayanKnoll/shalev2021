@@ -11,11 +11,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.CartridgeSystem;
-import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.KickerSystem;
 import frc.robot.subsystems.PitchSystem;
 import frc.robot.subsystems.ShootSystem;
-import frc.util.vision.Limelight;
+import frc.util.vision.Limelight.limelightLEDMode;
 
 
 public class ShootingCommand extends CommandBase {
@@ -23,49 +22,45 @@ public class ShootingCommand extends CommandBase {
   ShootSystem shootSystem;
   KickerSystem kickerSystem;
   PitchSystem pitchSystem;
-  DriveSystem driveSystem;
-  Limelight limelight;
   double velocity;
   double high;
-  public ShootingCommand(Limelight limelight,DriveSystem driveSystem,ShootSystem shootSystem, CartridgeSystem cartridgeSystem, KickerSystem kickerSystem, PitchSystem pitchSystem) {
-    this.limelight = limelight;
-    this.driveSystem = driveSystem;
+  public ShootingCommand(ShootSystem shootSystem, CartridgeSystem cartridgeSystem, KickerSystem kickerSystem, PitchSystem pitchSystem) {
     this.shootSystem = shootSystem;
     this.cartridgeSystem = cartridgeSystem;
     this.kickerSystem = kickerSystem;
     this.pitchSystem = pitchSystem;
-    addRequirements(shootSystem, cartridgeSystem, kickerSystem, pitchSystem, driveSystem);
+    addRequirements(shootSystem, cartridgeSystem, kickerSystem, pitchSystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-   velocity = (int)shootSystem.getTab().getFromDashboard("Shoot Velocity", 0);
-   high = shootSystem.getTab().getFromDashboard("pitch position", 0);
-
-
+    RobotContainer.limelight.setLEDMode(limelightLEDMode.kOn);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shootSystem.setOutput(velocity);
+    // get height from limelight
+    double y = RobotContainer.limelight.getY();
+
+    // calc speed and pitch
+    double velocity = 7595.8 - 49.144 * (y) + 2.9192 * Math.pow(y, 2) - 500;
+    double high = 25.145 - 0.838 * (y) + 0.0349 * Math.pow(y, 2) - 0.0034 * Math.pow(y, 3);
+  
+
+    // shootSystem.setOutput(velocity);
+    shootSystem.setVelocity(velocity);
+    shootSystem.goToVel();  
+    if (high > 100) high = 99;
     pitchSystem.setPosition(high);
-    // if(limelight.getX() > 0.2 || limelight.getX() < -0.2){
+    
+    System.out.println("flag: " + Constants.VisionFlag + " | vel: " + velocity + " | velt: " + shootSystem.getVelocity()
+    + " | high: " + high + " | pos: " + pitchSystem.getPosition());
 
-    //     double z = limelight.getX() * Constants.visionGainsZ.kp;
-    //     // System.out.println(z);
-    //     int dir = z > 0 ? 1 :-1;
-    //     driveSystem.drive(0, 0, Math.min(Math.abs(z), 0.5) * dir);
-
-    // }
-    // double velocity = RobotContainer.limelight.getY() * 2345;
-    //double high = RobotContainer.limelight.getY() * 2345;
-    // else{
-    // shootSystem.setOutput(shootSystem.getTab().getFromDashboard("Shoot Velocity", 0));
-    //System.out.println(shootSystem.getVelocity());
-    //System.out.println(shootSystem.getVelocity());
-    if(shootSystem.getVelocity() >= velocity - 100 && pitchSystem.getPosition() > high - 1 && pitchSystem.getPosition() < high + 1){
+    //
+    if(Constants.VisionFlag && Math.abs(shootSystem.getVelocity() - velocity) < 100 &&
+      Math.abs(pitchSystem.getPosition() - high) < 2){
       kickerSystem.setOutput(Constants.KICKER_SPEED);
       cartridgeSystem.setOutput(Constants.CARTRIDGE_SPEED);
     }
@@ -78,6 +73,9 @@ public class ShootingCommand extends CommandBase {
     shootSystem.stop();
     kickerSystem.setOutput(0);
     cartridgeSystem.setOutput(0);
+    pitchSystem.setOutput(0);
+
+    RobotContainer.limelight.setLEDMode(limelightLEDMode.kOff);
   }
 
   // Returns true when the command should end.

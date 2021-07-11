@@ -43,6 +43,7 @@ public class SuperTalonFX extends TalonFX implements SuperMotor {
         configFactoryDefault();
         configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
         setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 20);
+        
         setInverted(inverted);
         setSensorPhase(PhaseSensor);
         setNeutralMode(mNeutralMode);
@@ -80,7 +81,7 @@ public class SuperTalonFX extends TalonFX implements SuperMotor {
             setOutput *= positionMultiply;
         else if (mode == TalonFXControlMode.Velocity)
             setOutput *= velocityMultiply;
-       // System.out.println(mode.toString());
+        
         super.set(mode, setOutput);
     }
 

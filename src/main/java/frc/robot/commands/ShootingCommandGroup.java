@@ -4,24 +4,23 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.Constants;
+
 import frc.robot.subsystems.CartridgeSystem;
+import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.KickerSystem;
+import frc.robot.subsystems.PitchSystem;
 import frc.robot.subsystems.ShootSystem;
+import frc.util.vision.Limelight;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ShootingCommandGroup extends ParallelCommandGroup {
   /** Creates a new intakeBall2ShooterCommand. */
-  public ShootingCommandGroup(KickerSystem kickerSystem, CartridgeSystem cartridgeSystem, ShootSystem shootSystem, int velocity) {
+  public ShootingCommandGroup(Limelight limelight,DriveSystem driveSystem, KickerSystem kickerSystem,
+   CartridgeSystem cartridgeSystem, ShootSystem shootSystem, PitchSystem pitchSystem) {
+    addCommands(new VisionX(limelight, driveSystem), new ShootingCommand(shootSystem, cartridgeSystem, kickerSystem, pitchSystem));
     
-    Command shootCommand = new SetOutputCommand(shootSystem, velocity);
-    Command kickToTouchCommand  = new KickToTouchCommand(kickerSystem, shootSystem, Constants.KICKER_SPEED);
-    Command cartridges2shooter = new Cartridges2Shooter(cartridgeSystem, shootSystem);
-
-    addCommands(shootCommand, kickToTouchCommand , cartridges2shooter);
   }
 }

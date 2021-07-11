@@ -8,7 +8,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.AutoShootCommandGroup;
 import frc.robot.subsystems.CartridgeSystem;
+import frc.robot.subsystems.ClimbSystem;
 import frc.robot.subsystems.CollectionSystem;
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.KickerSystem;
@@ -35,6 +37,7 @@ public class RobotContainer {
   // all subsystems
   public final DriveSystem driveSystem = new DriveSystem("DriveSystem");
   public final CollectionSystem collectionSystem = new CollectionSystem();
+  public final ClimbSystem climbSystem = new ClimbSystem();
   public final CartridgeSystem cartridgeSystem = new CartridgeSystem();
   public final KickerSystem kickerSystem = new KickerSystem();
   public final ShootSystem shootSystem = new ShootSystem();
@@ -46,7 +49,7 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    buttons.loadButtons(driveSystem, collectionSystem, cartridgeSystem, kickerSystem, shootSystem, limelight, navxSystem, pitchSystem);
+    buttons.loadButtons(driveSystem, climbSystem, collectionSystem, cartridgeSystem, kickerSystem, shootSystem, limelight, navxSystem, pitchSystem);
     configureButtonBindings();
   }
 
@@ -66,6 +69,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return new AutoShootCommandGroup(shootSystem, driveSystem, cartridgeSystem, kickerSystem, pitchSystem);
   }
 }
