@@ -71,7 +71,7 @@ public final class Constants {
     public static final boolean SWERVE_BR_INVERTED = false;
 
     public static final double DEGREES_PER_ENCODER_ROTATION = -360;//-360
-    public static final double ENCODER_TO_METER = 1;
+    public static final double ENCODER_TO_METER = 0.0001;
     public static final double LEN_MODULE_FROM_CENTER = 1;
     public static final int NUMBER_OF_MODULES = 4;
     public static final Gains SWERVE_ANGLE_PID_GAINS = new Gains("SWERVE_ANGLE_PID_GAINS", 0.01, 0, 0.01);

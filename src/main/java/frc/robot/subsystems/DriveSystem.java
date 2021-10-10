@@ -84,6 +84,8 @@ public class DriveSystem extends SuperSystem implements SuperInterface {
       x += module.getCenter(RobotContainer.navxSystem).getFirst();
       y += module.getCenter(RobotContainer.navxSystem).getSecond();
     }
+
+    System.out.println("position : " + x/4 + "   " + y/4);
     return new Pair<Double, Double>(x / Constants.NUMBER_OF_MODULES, y / Constants.NUMBER_OF_MODULES);
   }
 

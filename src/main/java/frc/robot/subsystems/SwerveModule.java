@@ -23,12 +23,14 @@ public class SwerveModule {
     private DutyCycleEncoder angleEncoder;
     private double offset = 0;
     private PIDController PID_Controller;
-    private double lastSpeed = 0;
     private double lastEncoder = 0;
     private double x = 0;
     private double y = 0;
 
+
     private double angleFromCenter;
+
+    private int channel;
 
     public double getError() {
         return PID_Controller.getError();
@@ -36,6 +38,8 @@ public class SwerveModule {
 
     public SwerveModule(/* Boolean isSim, */ int angleMotorChannel, int wheelMotorCanID, int encoderChannel,
             boolean inverted, double offset, double angleFromCenter) {
+        this.channel = angleMotorChannel;
+
         angleMotor = new SuperVictorSP(angleMotorChannel);
         /*
          * if (isSim) wheelMotor = new SuperVictorSP(wheelMotorCanID); else
@@ -63,7 +67,7 @@ public class SwerveModule {
     }
 
     public double getAngleDistance() {
-        return angleEncoder.getDistance() * Constants.DEGREES_PER_ENCODER_ROTATION;
+        return angleEncoder.getDistance();
     }
 
     public double getEncoderDistance() {
@@ -89,21 +93,23 @@ public class SwerveModule {
         PID_Controller.setTargetPosition(angle);
     }
     public void updateCord(SuperNavX navx) {
-        double Encoder = getEncoderDistance()  - lastEncoder;
+        double totalDistance = getEncoderDistance();
+        double deltaDistance =  totalDistance - lastEncoder;
         double Angel = getAngleDistance() + navx.getAngle360();
-        double disX = Math.sin(Angel) * Encoder;
-        double disY = Math.cos(Angel) * Encoder;
-        x += disX;
-        y += disY;
-        lastEncoder += Encoder;
+        double dx = Math.sin(Math.toRadians(Angel)) * deltaDistance;
+        double dy = Math.cos(Math.toRadians(Angel)) * deltaDistance;
+        this.x += dx;
+        this.y += dy;
+        lastEncoder = totalDistance;
     }
     public Pair<Double, Double> getXY(){
         return new Pair<Double, Double>(x, y);
     } 
     public Pair<Double, Double> getCenter(SuperNavX navx) {
-        double x = Constants.LEN_MODULE_FROM_CENTER * Math.sin(navx.getAngle360() + angleFromCenter);
-        double y = Constants.LEN_MODULE_FROM_CENTER * Math.cos(navx.getAngle360() + angleFromCenter);
-        return new Pair<Double, Double>(this.x - x, this.y- y);
+        // double dx = Constants.LEN_MODULE_FROM_CENTER * Math.sin(navx.getAngle360() + angleFromCenter);
+        // double dy = Constants.LEN_MODULE_FROM_CENTER * Math.cos(navx.getAngle360() + angleFromCenter);
+        // return new Pair<Double, Double>(this.x + dx, this.y + dy);
+        return new Pair<Double, Double>(this.x, this.y);
     }
 
     private void goToPositionAngle(double currAngle) {
