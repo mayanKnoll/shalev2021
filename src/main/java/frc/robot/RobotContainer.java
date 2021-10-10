@@ -8,7 +8,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.AutoShootCommandGroup;
+import frc.robot.auto.AutoChooser;
+import frc.robot.auto.LeftAutoCommand;
+import frc.robot.auto.RightAutoCommand;
 import frc.robot.subsystems.CartridgeSystem;
 import frc.robot.subsystems.ClimbSystem;
 import frc.robot.subsystems.CollectionSystem;
@@ -42,7 +44,7 @@ public class RobotContainer {
   public final KickerSystem kickerSystem = new KickerSystem();
   public final ShootSystem shootSystem = new ShootSystem();
   public final PitchSystem pitchSystem = new PitchSystem();
-
+  public final AutoChooser autoChooser = new AutoChooser(driveSystem, pitchSystem, cartridgeSystem, kickerSystem, shootSystem, collectionSystem, limelight);
   public final RobotButtons buttons = new RobotButtons(driveJoystick, copilotJoystick);
 
   /**
@@ -64,11 +66,12 @@ public class RobotContainer {
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
+   * bv
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new AutoShootCommandGroup(shootSystem, driveSystem, cartridgeSystem, kickerSystem, pitchSystem);
+    
+    return autoChooser.getAutoCommand();
   }
 }

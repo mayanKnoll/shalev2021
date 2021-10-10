@@ -45,8 +45,9 @@ public class ShootingCommand extends CommandBase {
     double y = RobotContainer.limelight.getY();
 
     // calc speed and pitch
-    double velocity = 7595.8 - 49.144 * (y) + 2.9192 * Math.pow(y, 2) - 500;
-    double high = 25.145 - 0.838 * (y) + 0.0349 * Math.pow(y, 2) - 0.0034 * Math.pow(y, 3);
+    //double velocity = shootSystem.getTab().getFromDashboard("Shoot Velocity", 0);
+    double velocity = 7595.8 - 49.144 * (y) + 2.9192 * Math.pow(y, 2) - 800;
+    double high = 25.145 - 0.838 * (y) + 0.0349 * Math.pow(y, 2) - 0.0034 * Math.pow(y, 3) + 5;
   
 
     // shootSystem.setOutput(velocity);
@@ -59,8 +60,8 @@ public class ShootingCommand extends CommandBase {
     + " | high: " + high + " | pos: " + pitchSystem.getPosition());
 
     //
-    if(Constants.VisionFlag && Math.abs(shootSystem.getVelocity() - velocity) < 100 &&
-      Math.abs(pitchSystem.getPosition() - high) < 2){
+    if(RobotContainer.copilotJoystick.getRawAxis(3) > 0.05 || (Constants.VisionFlag && Math.abs(shootSystem.getVelocity() - velocity) < 150
+      && Math.abs(pitchSystem.getPosition() - high) < 2)){
       kickerSystem.setOutput(Constants.KICKER_SPEED);
       cartridgeSystem.setOutput(Constants.CARTRIDGE_SPEED);
     }

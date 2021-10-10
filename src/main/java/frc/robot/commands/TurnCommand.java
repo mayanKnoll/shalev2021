@@ -4,62 +4,44 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.DriveSystem;
 import frc.util.vision.Limelight;
 import frc.util.vision.Limelight.limelightLEDMode;
 
-public class VisionX extends CommandBase {
-  /** Creates a new VisionX. */
+public class TurnCommand extends CommandBase {
   DriveSystem driveSystem;
   Limelight limelight;
-  int i = 0;
-  PIDController pidController;
-  public VisionX(Limelight limelight,DriveSystem driveSystem) {
-    this.limelight = limelight;
-    pidController = new PIDController(0.02767, 0.003, 0.001);
+  double z;
+  public TurnCommand(DriveSystem driveSystem, Limelight limelight, double z) {
     this.driveSystem = driveSystem;
+    this.limelight = limelight;
+    this.z = z;
     addRequirements(driveSystem);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    i = 0;
-    Constants.VisionFlag = false;
-    pidController.setSetpoint(0);
-    // limelight.changeMode(true);
     limelight.setLEDMode(limelightLEDMode.kOn);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double goalAngle = limelight.getX();
-
-    double z = pidController.calculate(goalAngle);
-    
-    int dir = z < 0 ? 1 :-1;
-    
-    driveSystem.drive(0, 0, Math.min(Math.abs(z), 0.5) * dir);
-  
-    Constants.VisionFlag = Math.abs(goalAngle) <= 2;
+    driveSystem.drive(0, 0, z);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Constants.VisionFlag = true;
-    driveSystem.drive(0, 0, 0);
-    // limelight.changeMode(false);
-
+    limelight.setLEDMode(limelightLEDMode.kOff);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return limelight.isValid();
   }
 }

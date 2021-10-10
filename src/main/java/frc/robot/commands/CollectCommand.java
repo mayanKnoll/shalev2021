@@ -38,7 +38,7 @@ public class CollectCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (cartridgeSystem.getSwitch()) {
+    if (cartridgeSystem.getSwitch()) { 
       stage = 1;
       timer.reset();
     } else if (stage == 1){
@@ -47,7 +47,8 @@ public class CollectCommand extends CommandBase {
       }
     }
     
-    if(stage == 1) cartridgeSystem.setOutput(Constants.CARTRIDGE_SPEED * direction);
+    cartridgeSystem.setOutput(stage == 1 ? Constants.CARTRIDGE_SPEED * direction : 0);
+      
     collectionSystem.setOutput(Constants.COLLECT_SPEED * direction);
   }
 

@@ -25,7 +25,7 @@ public class ShootSystem extends OutputSystem {
   public ShootSystem() {
     super("ShootSystem");
     setDefaultCommand(new StopShooterCommand(this));
-    pidControl = new PIDController(0.45, 0.002, 0.03);
+    pidControl = new PIDController(0.45, 0.003, 0.01);
   }
 
   @Override

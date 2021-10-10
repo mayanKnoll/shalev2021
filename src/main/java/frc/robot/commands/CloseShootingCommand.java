@@ -16,8 +16,8 @@ public class CloseShootingCommand extends CommandBase {
   KickerSystem kickerSystem;
   PitchSystem pitchSystem;
 
-  int velocity = 7400;
-  int high = 0;
+  int velocity = 6000;
+  int high = 1;
   public CloseShootingCommand(ShootSystem shootSystem, CartridgeSystem cartridgeSystem, KickerSystem kickerSystem, PitchSystem pitchSystem) {
     this.shootSystem = shootSystem;
     this.cartridgeSystem = cartridgeSystem;
@@ -34,10 +34,11 @@ public class CloseShootingCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shootSystem.setOutput(velocity);
+    shootSystem.setVelocity(velocity);
+    shootSystem.goToVel();
     pitchSystem.setPosition(high);
 
-    if(Math.abs(shootSystem.getVelocity() - velocity) < 100 && Math.abs(pitchSystem.getPosition() - high) < 2){
+    if(Math.abs(shootSystem.getVelocity() - velocity) < 150){
       kickerSystem.setOutput(Constants.KICKER_SPEED);
       cartridgeSystem.setOutput(Constants.CARTRIDGE_SPEED);
     }

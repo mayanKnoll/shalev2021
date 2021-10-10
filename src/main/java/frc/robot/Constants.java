@@ -39,8 +39,9 @@ public final class Constants {
 
 
     public static final int MICRO_SWITCH_CHANNEL = 7;
-    public static final int PITCH_MAGNET_CHANNEL = 4;
-    public static final int CLIMB_MAGNET_CHANNEL = 00;
+    public static final int PITCH_MAGNET_CHANNEL = 5;
+    public static final int CLIMB_MAGNET_CHANNEL = 9;
+    public static final int CLIMB_SWITCH_CHANNEL = 6;
 
     public static final int SWERVE_FR_WHEEL_MOTOR_CAN_ID = 4;
     public static final int SWERVE_FL_WHEEL_MOTOR_CAN_ID = 3;
@@ -61,8 +62,8 @@ public final class Constants {
 
     public static final double SWERVE_FR_ANGLE_ENCODER_OFFSET = -242;//111;
     public static final double SWERVE_FL_ANGLE_ENCODER_OFFSET = -128.5;//81.5;
-    public static final double SWERVE_BL_ANGLE_ENCODER_OFFSET = 187;//-74.5;
-    public static final double SWERVE_BR_ANGLE_ENCODER_OFFSET = -4.7;//-2.2;
+    public static final double SWERVE_BL_ANGLE_ENCODER_OFFSET = 190.6;//-74.5;
+    public static final double SWERVE_BR_ANGLE_ENCODER_OFFSET = 86.3;//-2.2;
 
     public static final boolean SWERVE_FR_INVERTED = true;
     public static final boolean SWERVE_FL_INVERTED = false;
@@ -77,5 +78,5 @@ public final class Constants {
 
     public static final double KICKER_SPEED = 1;
     public static final double CARTRIDGE_SPEED = 0.7;
-    public static final double COLLECT_SPEED = 1;
+    public static final double COLLECT_SPEED = 0.6;
 }

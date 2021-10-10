@@ -18,10 +18,12 @@ public class CartridgeSystem extends OutputSystem{
 
   public CartridgeSystem() {
     super("Cartridge System");
+
   }
 
   @Override
   public void periodic() {
+    getTab().putInDashboard("switch", getSwitch());
     // This method will be called once per scheduler run
     //System.out.println("Distance : " + getDistance());
   }

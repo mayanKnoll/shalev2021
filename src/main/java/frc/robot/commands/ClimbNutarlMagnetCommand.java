@@ -5,34 +5,43 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ShootSystem;
+import frc.robot.Constants;
+import frc.robot.subsystems.ClimbSystem;
 
-public class ShootFasterCommand extends CommandBase {
-  ShootSystem shootSystem;
-  public ShootFasterCommand(ShootSystem shootSystem) {
-    this.shootSystem = shootSystem;
-    addRequirements(shootSystem);
+public class ClimbNutarlMagnetCommand extends CommandBase {
+  /** Creates a new ClimbNutarlMagnetCommand. */
+  ClimbSystem climbSystem;
+  double output;
+  boolean CLIMB_FLAG;
+  public ClimbNutarlMagnetCommand(ClimbSystem climbSystem, double output) {
+    this.climbSystem = climbSystem;
+    this.output = output;
+    addRequirements(climbSystem);
+    CLIMB_FLAG = false;
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shootSystem.setVelocity(6000);
+    climbSystem.set(output);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shootSystem.setOutput(0);
+    CLIMB_FLAG = true;
+    climbSystem.set(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return  CLIMB_FLAG || climbSystem.getSwitchMode();
   }
 }

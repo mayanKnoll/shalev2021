@@ -5,7 +5,9 @@ import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.util.Pair;
 import frc.util.PID.Gains;
 import frc.util.PID.PIDController;
@@ -68,6 +70,10 @@ public class SwerveModule {
         return wheelMotor.getPosition() * Constants.ENCODER_TO_METER;
     }
 
+    public double getVel() {
+        return wheelMotor.getVelocity();
+    }
+
     public void setWheelMotorOutput(double speed) {
         // int direction = speed > 0 ? 1 : -1;
         // speed = Math.abs(speed) > Math.abs(lastSpeed) + 0.004 ? lastSpeed + 0.004 * direction : speed; 
@@ -82,9 +88,8 @@ public class SwerveModule {
     private void setModuleAngle(double angle) {
         PID_Controller.setTargetPosition(angle);
     }
-
     public void updateCord(SuperNavX navx) {
-        double Encoder = getEncoderDistance() - lastEncoder;
+        double Encoder = getEncoderDistance()  - lastEncoder;
         double Angel = getAngleDistance() + navx.getAngle360();
         double disX = Math.sin(Angel) * Encoder;
         double disY = Math.cos(Angel) * Encoder;
@@ -92,17 +97,18 @@ public class SwerveModule {
         y += disY;
         lastEncoder += Encoder;
     }
-
+    public Pair<Double, Double> getXY(){
+        return new Pair<Double, Double>(x, y);
+    } 
     public Pair<Double, Double> getCenter(SuperNavX navx) {
         double x = Constants.LEN_MODULE_FROM_CENTER * Math.sin(navx.getAngle360() + angleFromCenter);
         double y = Constants.LEN_MODULE_FROM_CENTER * Math.cos(navx.getAngle360() + angleFromCenter);
-        return new Pair<Double, Double>(x + this.x, y + this.y);
+        return new Pair<Double, Double>(this.x - x, this.y- y);
     }
 
     private void goToPositionAngle(double currAngle) {
         angleMotor.setOutput(PID_Controller.getOutput(currAngle));
     }
-int i = 0;
     public void drive(double targetAngle, double speed) {
         // System.out.println("t" + targetAngle);
 
@@ -121,7 +127,6 @@ int i = 0;
         } else if (delta < -180) {
             targetAngle -= 360;
         }
-
         if (Math.abs(currAngleMod - targetAngle) > 90) {
             if (currAngleMod - targetAngle > 0) {
                 targetAngle += 180;
